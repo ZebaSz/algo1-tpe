@@ -1,0 +1,15 @@
+\begin{problema}{crearC}{posG, posC: (\ent, \ent)}{Campo}
+\requiere[puntosValidos]{0 \leq \prm{posG} \wedge 0 \leq \sgd{posG} \wedge 0 \leq \prm{posC} \wedge 0 \leq \sgd{posC}}
+\requiere[aMenosDe100]{distancia(posG, posC) \leq 100}
+\asegura{posicionGranero(\res) == posG}
+\asegura{posicionCasa(\res) == posC}
+\end{problema}
+
+\begin{problema}{dimensionesC}{c: Campo}{(Ancho, Largo))}
+\asegura{\res == dimensiones(c)}
+\end{problema}
+
+\begin{problema}{contenidoC}{c: Campo, i, j: \ent}{Parcela}
+\requiere[enRango]{0 \leq i < \prm{dimensiones(c)} \wedge 0 \leq j 0 < \sgd{dimensiones(c)}}
+\asegura{\res == contenido(c, i, j)}
+\end{problema}

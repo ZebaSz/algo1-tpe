@@ -1,0 +1,14 @@
+\begin{tipo}{Campo}
+	\observador{dimensiones}{c: Campo}{(Ancho, Largo)}
+	\observador{contenido}{c: Campo, i, j: \ent}{Parcela}
+		\requiere[enRango]{0 \leq i < prm(dimensiones(c)) \land 0 \leq j < sgd(dimensiones(c))}
+	\medskip
+	\invariante[dimensionesValidas]{prm(dimensiones(c)) > 0 \land sgd(dimensiones(c)) > 0}
+	\invariante[unaSolaCasa]{|[(i, j) | i \selec \rangoca{0}{prm(dimensiones(c))},  j \selec \rangoca{0}{sgd(dimensiones(c))}, \\ contenido(c, i, j) == Casa]| == 1}
+	\invariante[unSoloGranero]{|[(i, j) | i \selec \rangoca{0}{prm(dimensiones(c))},  j \selec \rangoca{0}{sgd(dimensiones(c))}, \\ contenido(c, i, j) == Granero]| == 1}
+	\invariante[algoDeCultivo]{|[(i, j) | i \selec \rangoca{0}{prm(dimensiones(c))},  j \selec \rangoca{0}{sgd(dimensiones(c))}, \\ contenido(c, i, j) == Cultivo]| \geq 1}
+	\invariante[posicionesAlcanzables]{posicionesAlcanzablesEn100(c)}
+
+\end{tipo}
+
+\noindent \aux{posicionesAlcanzablesEn100}{c: Campo}{\bool}{\\alcanzableEn100(posicionGranero(c), prm(dimensiones(c)), sgd(dimensiones(c)))}

@@ -1,0 +1,15 @@
+\begin{tipo}{Drone}
+	\observador{id}{d: Drone}{\id}
+	\observador{bateria}{d: Drone}{\carga}
+	\observador{enVuelo}{d: Drone}{\bool}
+	\observador{vueloRealizado}{d: Drone}{[(\ent, \ent)]}
+	\observador{posicionActual}{d: Drone}{(\ent, \ent)}
+	\observador{productosDisponibles}{d: Drone}{[Producto]}
+	\medskip
+	\invariante[vuelosOk]{\\ enVuelo(d) \Rightarrow (\longitud{vueloRealizado(d)} > 0 \land posicionActual(d) == vueloRealizado(d)_{\longitud{vueloRealizado(d)}-1} \land \\ posicionesPositivas(d) \land movimientosOK(d)) \land	\neg enVuelo(d) \Rightarrow \longitud{vueloRealizado(d)} == 0 }
+	\invariante[bateriaOk]{0 \leq bateria(d) \leq 100}
+\end{tipo}
+
+\noindent \aux{posicionesPositivas}{d: Drone}{\bool}{(\forall i \selec \rangoca{0}{\longitud{vueloRealizado(d)}})  prm(vueloRealizado(d)_i) \geq 0 \land \\ sgd(vueloRealizado(d)_i \geq 0}
+
+\noindent \aux{movimientosOK}{d: Drone}{\bool}{(\forall i \selec \rangoca{1}{\longitud{vueloRealizado(d)}}) \\ prm(vueloRealizado(d)_i) == prm(vueloRealizado(d)_{i-1}) \land (sgd(vueloRealizado(d)_i) == sgd(vueloRealizado(d)_{i-1}) - 1 \lor sgd(vueloRealizado(d)_i) == sgd(vueloRealizado(d)_{i-1}) + 1) \lor sgd(vueloRealizado(d)_i) == sgd(vueloRealizado(d)_{i-1}) \\ \land (prm(vueloRealizado(d)_i) == prm(vueloRealizado(d)_{i-1}) - 1 \lor prm(vueloRealizado(d)_{i-1}) == prm(vueloRealizado(d)_{i-1}) + 1)}

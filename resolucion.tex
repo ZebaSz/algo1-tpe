@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel} % Le indicamos a LaTeX que vamos a escribir en espa�ol.
+\usepackage[utf8]{inputenc} % Permite utilizar tildes y e�es normalmente
+\input{Algo1Macros}% Macros especificas para especificar problemas en AyEDI
+\usepackage{caratula} % Se puede descargar en ~> https://github.com/bcardiff/dc-tex
+
+% Aca solo vamos a poner el esqueleto del documento, pero no vamos a especificar nada.
+
+\begin{document} % Todo lo que escribamos a partir de aca va a aparecer en el documento.
+
+% Completar los datos de la caratula
+\titulo{TPE - Agricultura con drones} 
+\fecha{\today}
+\materia{Algoritmos y Estructuras de Datos I}
+\grupo{Grupo 15}
+
+% Completar con cuantos integrantes quieran :)
+\integrante{Szperling, Sebastián}{763/15}{email1@dominio.com}
+\integrante{Barylko, Roni}{750/15}{email2@dominio.com}
+\integrante{Giudice, Carlos}{694/15}{email3@dominio.com}
+\integrante{Segura, Florencia}{759/13}{email4@dominio.com}
+
+\maketitle
+
+\section{Tipos}
+
+\input{tipos/tipos}
+
+\section{Campo}
+
+\input{tipos/campo}
+
+\input{espec/campo}
+
+\newpage
+
+\section{Drone}
+
+\input{tipos/drone}
+
+\input{espec/drone}
+
+\newpage
+
+\section{Sistema}
+
+\input{tipos/sistema}
+
+\input{espec/sistema}
+
+%\input{espec/ejersRecu}
+
+\newpage
+
+\section{Funciones Auxiliares}
+
+\input{espec/auxiliares.tex}
+
+\end{document} %Termin�!
