@@ -9,8 +9,7 @@
 	\invariante[identificadoresUnicos]{sinRepetidos(\comp{id(d)}{d \selec enjambreDrones(s)})}
 	\invariante[unoPorParcela]{(\forall d, d' \selec dronesEnVuelo(s), id(d) \neq id(d')) posicionActual(d) \neq posicionActual(d')}
 	\invariante[siNoVuelanEstanEnGranero]{(\forall d \selec enjambreDrones(s), \neg enVuelo(d)) \\ posicionActual(d) == posicionGranero(campo(s))}
-  %CREO QUE ESTE NO ES NECESARIO invariante longitud de [DRONES] <= longitud [(i, j), i <- [0, largo), j <- [0, ancho], contenido(campo(S)) == CULTIVO]
-	\invariante[siEstaEnVueloEstaSobreCultivo]{(\forall d \selec dronesEnVuelo(s)) (\forall v \selec vueloRealizado(d))\\ enRango(dimensiones(campo(s), prm(v), sgd(v)) \land contenido(campo(s), prm(v), sgd(v)) == Cultivo}
+	\invariante[siEstanEnVueloElVueloEstaEnRango]{(\forall d \selec dronesEnVuelo(s)) (\forall v \selec vueloRealizado(d))\\ enRango(dimensiones(campo(s), prm(v), sgd(v))} 
 \end{tipo}
 
 \aux{dronesEnVuelo}{s: Sistema}{[Drone]}{\comp{d}{d \selec enjambreDrones(s), enVuelo(d)}}
