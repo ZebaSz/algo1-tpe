@@ -6,6 +6,10 @@
 
 % los aux del tipo drone
 
+\aux{movimientoAlternado}{d: Drone}{\bool}{(\forall d \leftarrow [2..|vueloRealizado(d))|) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \wedge \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
+
+\aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \leftarrow [3..|vueloRealizado(d))|) \\ |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}| == 1 \Leftrightarrow \\ |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}| == 2 \wedge \\ |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}| == 1 \Leftrightarrow \\ |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}| == 2}
+
 \subsection{Sistema}
 
 % los aux del tipo sistema

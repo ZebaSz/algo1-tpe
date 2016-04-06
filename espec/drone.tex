@@ -6,25 +6,35 @@
 \end{problema}
 
 \begin{problema}{idD}{d: Drone}{\ent}
+\asegura{\res == id(d)}
 \end{problema}
 
 \begin{problema}{bateriaD}{d: Drone}{\ent}
+\asegura{\res == bateria(d)}
 \end{problema}
 
 \begin{problema}{enVueloD}{d: Drone}{\bool}
+\asegura{\res == enVuelo(d)}
 \end{problema}
 
 \begin{problema}{vueloRealizadoD}{d: Drone}{[(\ent, \ent)]}
+\requiere{enVuelo(d)}
+\asegura{\res == vueloRealizado(d)}
+%%Es correcto? No se debe considerar la parcela desde la cual se despega
 \end{problema}
 
 \begin{problema}{posicionActualD}{d: Drone}{(\ent, \ent)}
+\asegura{\res == posicionActual(d)}
 \end{problema}
 
 \begin{problema}{productosDisponiblesD}{d: Drone}{[Producto]}
+\asegura{res == productosDisponibles(d)}
 \end{problema}
 
 \begin{problema}{vueloEscaleradoD}{d: Drone}{\bool}
+\asegura{\res == enVuelo(d) \wedge movimientoAlternado(d) \wedge movimientoUnidireccional(d)}
 \end{problema}
+
 
 \begin{problema}{vuelosCruzadosD}{ds: [Drone]}{[((\ent, \ent), \ent)]}
 \end{problema}
