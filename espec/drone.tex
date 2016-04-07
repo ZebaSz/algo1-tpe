@@ -1,4 +1,8 @@
 \begin{problema}{crearD}{i: \ent, ps: [Producto]}{Drone}
+\asegura {bateria(\res) == 100} 
+\asegura {id (\res) == i}
+\asegura {enVuelo(\res) == False}
+\asegura {mismos (productosDisponibles (\res), ps)}
 \end{problema}
 
 \begin{problema}{idD}{d: Drone}{\ent}
