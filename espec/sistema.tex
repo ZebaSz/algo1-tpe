@@ -1,19 +1,33 @@
 \begin{problema}{crearS}{c: Campo, ds: [Drone]}{Sistema}
+\asegura[dronesEnGranero] {(\forall d \leftarrow ds) posicionActual(d) == posicionGranero(c)}
+\asegura[bateriaLlena] {(\forall d \leftarrow ds) bateria(d) == 100}
+\asegura[cultivosNoSensados] {(\forall (i,j) \leftarrow dameCultivo(c)) estadoDelCultivo(c,i,j) == NoSensado}
 \end{problema}
 
 \begin{problema}{campoS}{s: Sistema}{Campo}
+\asegura {res == campo(s)}
 \end{problema}
 
 \begin{problema}{estadoDelCultivoS}{s: Sistema, i, j: \ent}{EstadoCultivo}
+\requiere {i \exists [0..prm{dimensiones(campo(s))}}
+\requiere {j \exists [0..sgd{dimensiones(campo(s))}}
+\requiere {contenido(campo(s),i,j) == Cultivo}
+\asegura {res == estadoDelCultivo(s,i,j)}
 \end{problema}
 
 \begin{problema}{enjambreDronesS}{s: Sistema}{[Drone]}
+\asegura {mismos(res, enjambreDrones(s))}
 \end{problema}
 
 \begin{problema}{crecerS}{s: Sistema}{}
+\modifica {s}
+\asegura {mismos(dameEstado(pre(s), RecienSembrado), dameEstado(s, EnCrecimiento))}
+\asegura {mismos(dameEstado(pre(s), EnCrecimiento), dameEstado(s, ListoParaCosechar))}
+\asegura {mismos(dameOtroEstado(pre(s),[RecienSembrado, EnCrecimiento, ListoParaCosechar]), dameOtroEstado(s), [RecienSembrado, EnCrecimiento, ListoParaCosechar])}
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
+
 \end{problema}
 
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
