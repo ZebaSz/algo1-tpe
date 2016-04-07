@@ -9,8 +9,7 @@
 \end{problema}
 
 \begin{problema}{estadoDelCultivoS}{s: Sistema, i, j: \ent}{EstadoCultivo}
-\requiere {i \exists [0..prm{dimensiones(campo(s))}}
-\requiere {j \exists [0..sgd{dimensiones(campo(s))}}
+\requiere {enRango(dimensiones(campo(s)),i,j)}
 \requiere {contenido(campo(s),i,j) == Cultivo}
 \asegura {res == estadoDelCultivo(s,i,j)}
 \end{problema}
@@ -27,7 +26,6 @@
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
-
 \end{problema}
 
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
