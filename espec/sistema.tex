@@ -1,7 +1,9 @@
 \begin{problema}{crearS}{c: Campo, ds: [Drone]}{Sistema}
 \asegura[dronesEnGranero] {(\forall d \leftarrow ds) posicionActual(d) == posicionGranero(c)}
 \asegura[bateriaLlena] {(\forall d \leftarrow ds) bateria(d) == 100}
-\asegura[cultivosNoSensados] {(\forall (i,j) \leftarrow dameCultivo(c)) estadoDelCultivo(c,i,j) == NoSensado}
+\asegura[cultivosNoSensados] {(\forall i \leftarrow [0...prm (dimensiones(c))), j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \Rightarrow estadoDelCultivo(c,i,j) == NoSensado}
+\asegura {(campo (\res) == c}
+\asegura {mismos (enjambreDrones (\res), ds)}
 \end{problema}
 
 \begin{problema}{campoS}{s: Sistema}{Campo}

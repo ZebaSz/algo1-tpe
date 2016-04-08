@@ -13,10 +13,6 @@
 \subsection{Sistema}
 
 % los aux del tipo sistema
-\aux{dameCultivo}{c: Campo} {[(\ent, \ent)]} {[(i,j) | \\
-i \leftarrow [0..\prm{dimensiones(campo(s))}), j \leftarrow [o..\sgd{dimensiones(campo(s))}),\\
-contenido(c,i,j) == Cultivo}
-
 \aux{dameEstado}{s: Sistema, estado: EstadoCultivo}{[(\ent, \ent)]} {[(i,j)| \\
 i \leftarrow [0..\prm{dimensiones(campo(s))}), j \leftarrow [o..\sgd{dimensiones(campo(s))}),\\
 contenido(campo(s),i,j) == Cultivo \wedge estadoDeCultivo(s,i,j) == estado]}
