@@ -6,25 +6,41 @@
 \end{problema}
 
 \begin{problema}{idD}{d: Drone}{\ent}
+\asegura{\res == id(d)}
 \end{problema}
 
 \begin{problema}{bateriaD}{d: Drone}{\ent}
+\asegura{\res == bateria(d)}
 \end{problema}
 
 \begin{problema}{enVueloD}{d: Drone}{\bool}
+\asegura{\res == enVuelo(d)}
 \end{problema}
 
 \begin{problema}{vueloRealizadoD}{d: Drone}{[(\ent, \ent)]}
+\requiere{enVuelo(d)}
+\asegura{\res == vueloRealizado(d)}
+%%Es correcto? No se debe considerar la parcela desde la cual se despega
 \end{problema}
 
 \begin{problema}{posicionActualD}{d: Drone}{(\ent, \ent)}
+\asegura{\res == posicionActual(d)}
 \end{problema}
 
 \begin{problema}{productosDisponiblesD}{d: Drone}{[Producto]}
+\asegura{res == productosDisponibles(d)}
 \end{problema}
 
 \begin{problema}{vueloEscaleradoD}{d: Drone}{\bool}
+\asegura{\res == enVuelo(d) \wedge movimientoAlternado(d) \wedge movimientoUnidireccional(d)}
 \end{problema}
 
+
 \begin{problema}{vuelosCruzadosD}{ds: [Drone]}{[((\ent, \ent), \ent)]}
+\requiere[todosEnVuelo]{(\forall i \leftarrow [0..|ds|)) enVuelo(ds_i)}
+\requiere[vuelosDeIgualLargo]{(\forall i \leftarrow [1..|ds|)) |vueloRealizado(ds_i)| == |vueloRealizado(ds_{i-1})|}
+\asegura[crucesValidos]{(\forall cruce \leftarrow \res) \sgd{cruce} > 1}
+%\asegura[noSobranCruces]{(\forall cruce \leftarrow \res) \exists i \leftarrow [0..|vueloRealizado(ds_i)|) \\ |[1 | d \leftarrow ds, vueloRealizado(ds_i) == \prm{cruce}]| == \sgd{cruce}}
+\asegura{|ds| == 0 \vee (mismos(res, [ cruce | i \leftarrow [0..|vueloRealizado(ds_0)|), \\ cruce \leftarrow [ (posicion, |[ 1 | d \leftarrow ds, vueloRealizado(d)_i == posicion]|) | \\ posicion \leftarrow sinRepetidos([ vueloRealizado(d)_i | d \leftarrow ds ]) ], \sgd{cruce} > 1 ]))}
+\asegura[enOrden]{(\forall i \leftarrow [1..|\res|)) \sgd{\res_i} \geq \sgd{\res_{i-1}} \vee (\forall i \leftarrow [1..|\res|)) \sgd{\res_i} \leq \sgd{\res_{i-1}}}
 \end{problema}

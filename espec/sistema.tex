@@ -1,35 +1,81 @@
 \begin{problema}{crearS}{c: Campo, ds: [Drone]}{Sistema}
+\asegura[dronesEnGranero] {(\forall d \leftarrow ds) posicionActual(d) == posicionGranero(c)}
+\asegura[bateriaLlena] {(\forall d \leftarrow ds) bateria(d) == 100}
+\asegura[cultivosNoSensados] {(\forall (i,j) \leftarrow dameCultivo(c)) estadoDelCultivo(c,i,j) == NoSensado}
 \end{problema}
 
 \begin{problema}{campoS}{s: Sistema}{Campo}
+\asegura {res == campo(s)}
 \end{problema}
 
 \begin{problema}{estadoDelCultivoS}{s: Sistema, i, j: \ent}{EstadoCultivo}
+\requiere {enRango(dimensiones(campo(s)),i,j)}
+\requiere {contenido(campo(s),i,j) == Cultivo}
+\asegura {res == estadoDelCultivo(s,i,j)}
 \end{problema}
 
 \begin{problema}{enjambreDronesS}{s: Sistema}{[Drone]}
+\asegura {mismos(res, enjambreDrones(s))}
 \end{problema}
 
 \begin{problema}{crecerS}{s: Sistema}{}
+\modifica {s}
+\asegura {mismos(dameEstado(pre(s), RecienSembrado), dameEstado(s, EnCrecimiento))}
+\asegura {mismos(dameEstado(pre(s), EnCrecimiento), dameEstado(s, ListoParaCosechar))}
+\asegura {mismos(dameOtroEstado(pre(s),[RecienSembrado, EnCrecimiento, ListoParaCosechar]), \\ dameOtroEstado(s, [RecienSembrado, EnCrecimiento, ListoParaCosechar])}
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
+\requiere {(\forall (i,j) \leftarrow ps) enRango(dimensiones(campo(s)),i,j)}
+\modifica{s}
+\asegura {mismos(dameOtroEstado(pre(s),[]), dameEstado(s, ConMaleza))}
+%aca dameOtroEstado estaria funcionando como un "dameCultivos", chequeen que no se rompe
 \end{problema}
 
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
+\modifica {s}
+\asegura {(\forall (i,j) \leftarrow dameEstado(pre(s), ConPlaga)) \\ todasTienenEstado(parcelasAdyacentes(i,j,campo(s)), s,ConPlaga))}
+\asegura {mismos(noCAdyacente(pre(s)), noCAdyacente(s))}
 \end{problema}
 
 \begin{problema}{despegarS}{s: Sistema, d: Drone}{}
+\requiere {\neg enVuelo(d)}
+\requiere {bateria(d) = 100}
+\modifica{s}
+\asegura {|vueloRealizado(d)| > 0}
 \end{problema}
 
 \begin{problema}{listoParaCosecharS}{s: Sistema}{\bool}
+\asegura {|dameEstado(s, ListoParaCosechar)|\: /\: |dameOtroEstado(s, [])| \geq 0.9}
 \end{problema}
 
 \begin{problema}{aterrizarYCargarBateriaS}{s: Sistema, b: \ent}{}
+%\requiere {b < 100} %Podria haber un d con bateria=100 y |vuelosRealizados|>0?
+\modifica {s}
+%\asegura{sinRepetidos(dronesConBateria(enjambreDrones(pre(s)),b) ++ dronesConBateria(enjambreDrones(s),b)}
+\asegura {(\forall d \leftarrow (dronesConBateria(enjambreDrones(pre(s)),b)) \\
+bateria(d)== 100 \wedge |vuelosRealizados(d)|== 0 \wedge \neg enVuelo(d)}
+ 
 \end{problema}
+
+
+
 
 \begin{problema}{fertilizarPorFilas}{s: Sistema}{}
+\requiere {sinRepetidos(listaAbscisas(posicionesEnjambre(s)))}
+\modifica {s}
+\asegura {(\forall d \leftarrow dejanDeFuncionar(pre(s)))(\forall e \leftarrow enjambreDrones(s)) \\
+id(s)==id(e), posicionActual(e) == posicionGranero(campo(s))}
+\asegura {(\forall e \leftarrow enjambreDrones(s)) (\forall d \leftarrow enjambreDrones(pre(s))) \\
+(coordAbscisa(e) < coordAbscisa(d) \vee posicionActual(e) == posicionGranero(campo(s)))\\
+\wedge (mismos (productosDisponibles(e), Fertilizante:productosDisponibles(d)))}
 \end{problema}
 
+
 \begin{problema}{volarYSensarS}{s: Sistema, d: Drone}{}
+%\modifica{s}
+%\asegura {(\forall e \leftarrow enjambreDrones(s), id(e)==id(d)) \\
+%distancia(posicionActual(d),posicionActual(e)) == 1}
+
+%Modifica el sistema s haciendo que el drone d se mueva a una parcela adyacente de donde estaba. Si el drone se mueve a una P arcela de Cultivo cuyo estado es N oSensado sensa esa parcela. En caso contrario, de acuerdo a los productos de los que disponga realiza alguna de las siguientes acciones: Si tiene algún tipo de herbicida, y la parcela a la cual el drone llega es de Cultivo y está ConM aleza, aplica el herbicida y planta semillas, dejando el cultivo en estado RecienSembrado. Si tiene algún tipo de plaguicida, y la parcela a la cual el drone llega es de Cultivo y está ConP laga, el drone aplica el plaguicida y planta semillas, dejando el cultivo en estado RecienSembrado. En todos los casos, es necesario que el drone cuente con suficiente baterı́a como para utilizar los productos. En cualquier caso, luego de utilizar un producto, éste se elimina del listado de productos disponibles en el drone.
 \end{problema}
