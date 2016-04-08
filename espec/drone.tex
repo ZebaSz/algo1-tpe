@@ -37,7 +37,7 @@
 
 
 \begin{problema}{vuelosCruzadosD}{ds: [Drone]}{[((\ent, \ent), \ent)]}
-\requiere[todosEnVuelo]{(\forall d \leftarrow ds) enVuelo(d)}
+\requiere[todosEnVuelo]{(\forall i \leftarrow [0..|ds|)) enVuelo(ds_i)}
 \requiere[vuelosDeIgualLargo]{(\forall i \leftarrow [1..|ds|)) |vueloRealizado(ds_i)| == |vueloRealizado(ds_{i-1})|}
 \asegura[crucesValidos]{(\forall cruce \leftarrow \res) \sgd{cruce} > 1}
 %\asegura[noSobranCruces]{(\forall cruce \leftarrow \res) \exists i \leftarrow [0..|vueloRealizado(ds_i)|) \\ |[1 | d \leftarrow ds, vueloRealizado(ds_i) == \prm{cruce}]| == \sgd{cruce}}
