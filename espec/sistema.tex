@@ -47,10 +47,16 @@
 \end{problema}
 
 \begin{problema}{despegarS}{s: Sistema, d: Drone}{}
-\requiere {\neg enVuelo(d)}
-\requiere {bateria(d) = 100}
-\modifica{s}
-\asegura {|vueloRealizado(d)| > 0}
+\requiere{\neg enVuelo(d)}
+\modifica{s, d}
+\asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
+\asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
+\asegura[mismoDron]{id(d) == id(\pre{d})}
+\asegura[mismaBateria]{bateria(d) == bateria(\pre{d})}
+\asegura[mismaPosicion]{posicionActual(d) == posicionActual(\pre{d})} 
+\asegura[mismoProducto]{productosDisponibles(d) = productosDisponibles(\pre{d})}
+\asegura[despegue]{enVuelo(d) \wedge vueloRealizado(d) == [posicionActual]}
+\asegura[mismoEnjambre]{mismos(enjambreDrones(s), d : [ dron | dron \leftarrow enjambreDrones(\pre{s}), dron \neq \pre{d} ])}
 \end{problema}
 
 \begin{problema}{listoParaCosecharS}{s: Sistema}{\bool}
