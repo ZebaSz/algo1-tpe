@@ -13,11 +13,9 @@
 \subsection{Sistema}
 
 % los aux del tipo sistema
-\aux{adyacenteAPlaga}{s: Sistema, (i,j): \ent}{\bool}{\en{ConPlaga, [ estadoDelCultivo(s,i,j) | (i,j) \leftarrow parcelasAdyacentes((i,j),s) ]}}
+\aux{adyacenteAPlaga}{s: Sistema, (i,j): \ent}{\bool}{\\ \en{ConPlaga, [ estadoDelCultivo(s,i,j) | (i,j) \leftarrow cultivosAdyacentes((i,j),s) ]}}
 
-\aux{parcelasAdyacentes}{(i,j):(\ent,\ent), c: Campo}{[(\ent, \ent)]}{[(x,y) | \\
-x \leftarrow [i-1, i+1], y \leftarrow [j-1, j+1], contenido(c,x,y) == Cultivo \\
-\wedge enRango(dimensiones(c),x,y)]}
+\aux{cultivosAdyacentes}{(i,j):(\ent,\ent), c: Campo}{[(\ent, \ent)]}{[ (x,y) | (x,y) \leftarrow [(i,j+1),(i+1,j),(i,j-1),(i-1,j)], \\ enRango(dimensiones(c),x,y) \wedge contenido(c,x,y) == Cultivo]}
 
 \aux {dronesConBateria}{ds: [Drone], b: \ent}{[Drone]}{[d | \\
 d \leftarrow ds, bateria(d) \leq b]}
