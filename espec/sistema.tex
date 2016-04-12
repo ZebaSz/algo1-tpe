@@ -60,7 +60,7 @@
 \end{problema}
 
 \begin{problema}{listoParaCosecharS}{s: Sistema}{\bool}
-\asegura {|dameEstado(s, ListoParaCosechar)|\: /\: |dameOtroEstado(s, [])| \geq 0.9}
+\asegura{\res == (\longitud{[ 1 | (i,j) \leftarrow cultivos(s), estadoDelCultivo(s,i,j) == ListoParaCosechar ]} \div \longitud{cultivos(s)} \geq 0.9)}
 \end{problema}
 
 \begin{problema}{aterrizarYCargarBateriaS}{s: Sistema, b: \ent}{}
