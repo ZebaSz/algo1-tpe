@@ -33,7 +33,6 @@
 \requiere {(\forall (i,j) \leftarrow ps) contenido(campo(s),i,j) == Cultivo}
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
 \asegura[mismosDrones]{enjambreDrones(\pre{s}) == enjambreDrones(s)}
 \asegura[enmalezado]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ \en{(i,j),ps} \Rightarrow estadoDelCultivo(s,i,j) == ConMaleza \\ \wedge \neg(\en{(i,j),ps)} \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
@@ -41,9 +40,8 @@
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
 \modifica {s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
 \asegura[mismosDrones]{enjambreDrones(\pre{s}) == enjambreDrones(s)}
-\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ adyacenteAPlaga(s,i,j) \Rightarrow estadoDelCultivo(s,i,j) == ConPlaga \wedge  \neg(adyacenteAPlaga(s,i,j)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
+\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ adyacenteAPlaga(s,i,j) \Rightarrow estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
 \begin{problema}{despegarS}{s: Sistema, d: Drone}{}
