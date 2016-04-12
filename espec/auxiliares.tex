@@ -13,7 +13,7 @@
 \subsection{Sistema}
 
 % los aux del tipo sistema
-\aux{adyacenteAPlaga}{s: Sistema, (i,j): \ent}{\bool}{\\ \en{ConPlaga, [ estadoDelCultivo(s,i,j) | (i,j) \leftarrow cultivosAdyacentes((i,j),s) ]}}
+\aux{adyacenteAPlaga}{s: Sistema, (i,j): \ent}{\bool}{\\ \en{ConPlaga, [ estadoDelCultivo(s,i,j) | (i,j) \leftarrow cultivosAdyacentes((i,j),campo (s)) ]}}
 
 \aux{cultivosAdyacentes}{(i,j):(\ent,\ent), c: Campo}{[(\ent, \ent)]}{[ (x,y) | (x,y) \leftarrow [(i,j+1),(i+1,j),(i,j-1),(i-1,j)], \\ enRango(dimensiones(c),x,y) \wedge contenido(c,x,y) == Cultivo]}
 
