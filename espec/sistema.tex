@@ -22,15 +22,19 @@
 
 \begin{problema}{crecerS}{s: Sistema}{}
 \modifica {s}
-\asegura {mismos(dameEstado(pre(s), RecienSembrado), dameEstado(s, EnCrecimiento))}
-\asegura {mismos(dameEstado(pre(s), EnCrecimiento), dameEstado(s, ListoParaCosechar))}
-\asegura {mismos(dameOtroEstado(pre(s),[RecienSembrado, EnCrecimiento, ListoParaCosechar]), \\ dameOtroEstado(s, [RecienSembrado, EnCrecimiento, ListoParaCosechar])}
+\asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
+\asegura[mismosDrones]{enjambreDrones(\pre{s}) == enjambreDrones(s)}
+\asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))})) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
+\asegura[crecimientoCultivo]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))})) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) == Cultivo \Rightarrow \\ (estadoDelCultivo(\pre{s}, i, j) == RecienSembrado \Rightarrow estadoDelCultivo(s, i, j) == EnCrecimiento \\ \wedge estadoDelCultivo(\pre{s}, i, j) == EnCrecimiento \Rightarrow estadoDelCultivo(s, i, j) == ListoParaCosechar \\ \wedge (estadoDelCultivo(\pre{s}, i, j) \neq RecienSembrado \wedge estadoDelCultivo(\pre{s}, i, j) \neq EnCrecimiento) \\ \Rightarrow estadoDelCultivo(\pre{s}, i, j)  = estadoDelCultivo(s, i, j))}
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
 \requiere {(\forall (i,j) \leftarrow ps) enRango(dimensiones(campo(s)),i,j)}
+\requiere {(\forall (i,j) \leftarrow ps) contenido(campo(s),i,j) == Cultivo}
 \modifica{s}
-\asegura {mismos(dameOtroEstado(pre(s),[]), dameEstado(s, ConMaleza))}
+\asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
+\asegura[mismosDrones]{enjambreDrones(\pre{s}) == enjambreDrones(s)}
+\asegura[enmalezado]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))})) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ en((i,j),ps) \Rightarrow estadoDelCultivo(s,i,j) == ConMaleza \wedge \neg(en((i,j),ps)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 %aca dameOtroEstado estaria funcionando como un "dameCultivos", chequeen que no se rompe
 \end{problema}
 
