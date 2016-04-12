@@ -41,7 +41,7 @@
 \modifica {s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismosDrones]{enjambreDrones(\pre{s}) == enjambreDrones(s)}
-\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ adyacenteAPlaga(s,i,j) \Rightarrow estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
+\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ adyacenteAPlaga(s,i,j) \Rightarrow estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
 \begin{problema}{despegarS}{s: Sistema, d: Drone}{}
