@@ -1,7 +1,7 @@
 \begin{problema}{crearS}{c: Campo, ds: [Drone]}{Sistema}
 \asegura[dronesEnGranero] {(\forall d \leftarrow ds) posicionActual(d) == posicionGranero(c)}
 \asegura[bateriaLlena] {(\forall d \leftarrow ds) bateria(d) == 100}
-\asegura[cultivosNoSensados] {(\forall i \leftarrow [0...prm (dimensiones(c))), j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \Rightarrow estadoDelCultivo(c,i,j) == NoSensado}
+\asegura[cultivosNoSensados] {(\forall i \leftarrow [0...prm (dimensiones(c))), j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \implica estadoDelCultivo(c,i,j) == NoSensado}
 \asegura {(campo (\res) == c}
 \asegura {mismos (enjambreDrones (\res), ds)}
 \end{problema}
@@ -25,7 +25,7 @@
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismosDrones]{mismos(enjambreDrones(\pre{s}), enjambreDrones(s))}
 \asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
-\asegura[crecimientoCultivo]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == Cultivo \Rightarrow \\ (estadoDelCultivo(\pre{s}, i, j) == RecienSembrado \Rightarrow estadoDelCultivo(s, i, j) == EnCrecimiento \\ \wedge estadoDelCultivo(\pre{s}, i, j) == EnCrecimiento \Rightarrow estadoDelCultivo(s, i, j) == ListoParaCosechar \\ \wedge (estadoDelCultivo(\pre{s}, i, j) \neq RecienSembrado \wedge estadoDelCultivo(\pre{s}, i, j) \neq EnCrecimiento) \\ \Rightarrow estadoDelCultivo(\pre{s}, i, j)  = estadoDelCultivo(s, i, j))}
+\asegura[crecimientoCultivo]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == Cultivo \implica \\ (estadoDelCultivo(\pre{s}, i, j) == RecienSembrado \implica estadoDelCultivo(s, i, j) == EnCrecimiento \\ \wedge estadoDelCultivo(\pre{s}, i, j) == EnCrecimiento \implica estadoDelCultivo(s, i, j) == ListoParaCosechar \\ \wedge (estadoDelCultivo(\pre{s}, i, j) \neq RecienSembrado \wedge estadoDelCultivo(\pre{s}, i, j) \neq EnCrecimiento) \\ \implica estadoDelCultivo(\pre{s}, i, j)  = estadoDelCultivo(s, i, j))}
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
@@ -35,7 +35,7 @@
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
 \asegura[mismosDrones]{mismos(enjambreDrones(\pre{s}), enjambreDrones(s))}
-\asegura[enmalezado]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ \en{(i,j),ps} \Rightarrow estadoDelCultivo(s,i,j) == ConMaleza \\ \wedge \neg(\en{(i,j),ps)} \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
+\asegura[enmalezado]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))})) \\ \en{(i,j),ps} \implica estadoDelCultivo(s,i,j) == ConMaleza \\ \wedge \neg(\en{(i,j),ps)} \implica estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
@@ -43,7 +43,7 @@
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismoContenido]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) == contenido(campo(pre(s)), i, j)}
 \asegura[mismosDrones]{mismos(enjambreDrones(\pre{s}), enjambreDrones(s))}
-\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ adyacenteAPlaga(s,i,j) \Rightarrow estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \Rightarrow estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
+\asegura[expansiónDePlaga]{(\forall i \leftarrow [0..\prm{dimensiones(campo(s))}) (\forall j \leftarrow [0..\sgd{dimensiones(campo(s))}) \\ adyacenteAPlaga(s,i,j) \implica estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \implica estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
 \begin{problema}{despegarS}{s: Sistema, d: Drone}{}
