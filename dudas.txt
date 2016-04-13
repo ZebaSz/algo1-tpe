@@ -1,0 +1,11 @@
+Hay que buscar una forma de conciliar el problema 8 con el 20, porque en este último corre la idea de que claramente VueloRealizado debe incluir el lugar donde
+estoy, pero en el ej.8 se aclara claramente que "no se debe contar la posición de despegue".
+Podemos 	a) No considerar la posicion de despegue del drone por mas que en este caso sea su posición actual
+		   (resulta poco intuitivo pero evita contradicciones)
+
+		b) Replantear la forma en la que despega el drone
+		   (podría significar en algún punto meter las manos en un lugar donde no nos pidieron, y hasta contradecir lo que plantea
+		    el problema 8, pero al menos no le escapamos al problema)
+
+		c) O pueden verme batear unos cuadrangulares
+		   (CUADRANGULARES CUADRANGULARES!)
