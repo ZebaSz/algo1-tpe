@@ -9,3 +9,54 @@ Podemos 	a) No considerar la posicion de despegue del drone por mas que en este 
 
 		c) O pueden verme batear unos cuadrangulares
 		   (CUADRANGULARES CUADRANGULARES!)
+
+
+
+SEBA:
+tratando de plantear la parte del plaguicida del prob 24
+
+{
+	-tiene plaga?
+		-tiene bateria para usar un plaguicida cualquiera?
+			-tiene algun plaguicida cualquiera?
+				-si uso un plaguicida comun, gasto 11 bateria
+				-si uso un plaguicida bajo consumo, gasto 6 bateria
+				-si uso cualquier plaguicida, el campo ahora está RecienSembrado
+				-descarto el producto usado
+			-no tiene? ver "no hace nada"
+
+		-tiene bateria para usar un plaguicida bajo consumo?
+			-tiene un plaguicida bajo consumo?
+				-lo uso, gasto 6 bateria
+				-el campo ahora está RecienSembrado
+				-descarto el producto usado
+			-no tiene? ver "no hace nada"
+
+		-no tiene bateria para nada? ver "no hace nada"
+
+	si no hace nada:
+		-mantiene sus productos
+		-gasta 1 bateria (por moverse)
+		-el campo queda como estaba
+}
+
+es re complicado de pasar a especificacion
+para comparacion, la parte de malezas es mucho mas sencilla
+
+{
+	-tiene maleza?
+		-tiene bateria para usar algun herbicida?
+			-tiene algun herbicida cualquiera?
+				-uso algun herbicida, da igual
+				-gasto 6 bateria
+				-el campo ahora está RecienSembrado
+				-descarto el producto usado
+
+			-no tiene herbicida? ver "no hace nada"
+		-no tiene bateria? ver "no hace nada"
+
+	si no hace nada:
+		-mantiene sus productos
+		-gasta 1 bateria (por moverse)
+		-el campo queda como estaba
+}
