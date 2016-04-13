@@ -76,13 +76,21 @@
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 
-\asegura[fertilizarCampo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) == Cultivo \implica \\ (((estadoDelCultivo(\pre{s}, i, j) == RecienSembrado \vee estadoDelCultivo(\pre{s}, i, j) == EnCrecimiento) \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (estadoDelCultivo(\pre{s}, i, j) \neq RecienSembrado \wedge estadoDelCultivo(\pre{s}, i, j) \neq EnCrecimiento) \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j)))}
+\asegura[mismosDrones]{\longitud{enjambreDrones(s)} == \longitud{enjambreDrones(\pre{s})} \\ \wedge (\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s)) id(e) == id(d)}
 
-\asegura[mismosDrones]{\longitud{enjambreDrones(s)} == \longitud{enjambreDrones(\pre{s})}}
+\asegura[soloCambiarSiEnVuelo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ enVuelo(d) == enVuelo(e) \wedge \neg enVuelo(d) \implica d == e}
 
-\asegura[cambiosEnDrones]{(\forall d \in enjambreDrones(\pre{s})) \\ (enVuelo(d) \wedge ((\exists e \in enjambreDrones(s)) id(e) == id(d)  \wedge enVuelo(e) \wedge alOeste(e, d) \\ \wedge bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)}) \\ \wedge unFertilizantePorCultivo(e,d))) \wedge soloCultivos(s,vueloDiferente(e,d))  \\ \vee (\neg enVuelo(d) \wedge \en{d,enjambreDrones(s))}}
+\asegura[vuelosAlOeste]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ \prm{posicionActual(e)} == \prm{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
+
+\asegura[gastoDeBateria]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)})}
+
+\asegura[unFertilizantePorCultivo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante | i \leftarrow [0..\longitud{vueloDiferente(e,d)}) ])}
+
+\asegura[soloCultivos]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ (\forall (i,j) \in vueloDiferente(e,d)) contenido(campo(s),i,j) == Cultivo}
 
 \asegura[condicionDeFinalizacion]{(\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} = \sgd{dimension(campo(s))}}
+
+\asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
 
 \end{problema}
 
