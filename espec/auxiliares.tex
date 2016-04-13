@@ -14,6 +14,8 @@
 
 \aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \in [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \wedge \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
 
+\aux{posicionesSinRepetir}{ps: [(\ent, \ent)]}{[(\ent, \ent)]}{[ps_i \ | \ i \leftarrow [0..\longitud{ps}), (\forall j \in [0..i)) \ ps_i \neq ps_j]} 
+
 \subsection{Sistema}
 
 % los aux del tipo sistema
