@@ -53,7 +53,7 @@
 \asegura[mismoDron]{id(d) == id(\pre{d})}
 \asegura[mismaBateria]{bateria(d) == bateria(\pre{d})}
 \asegura[mismaPosicion]{posicionActual(d) == posicionActual(\pre{d})} 
-\asegura[mismoProducto]{productosDisponibles(d) = productosDisponibles(\pre{d})}
+\asegura[mismosProductos]{mismos(productosDisponibles(d), productosDisponibles(\pre{d}))}
 \asegura[despegue]{enVuelo(d) \wedge vueloRealizado(d) == [posicionActual]}
 \asegura[mismoEnjambre]{mismos(enjambreDrones(s), d : [ e | e \leftarrow enjambreDrones(\pre{s}), e \neq \pre{d} ])}
 \end{problema}
@@ -88,7 +88,7 @@
 
 \asegura[soloCultivos]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ (\forall (i,j) \in vueloDiferente(e,d)) contenido(campo(s),i,j) == Cultivo}
 
-\asegura[condicionDeFinalizacion]{(\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} = \sgd{dimension(campo(s))}}
+\asegura[condicionDeFinalizacion]{(\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} == 0}
 
 \asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
 

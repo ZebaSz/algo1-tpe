@@ -19,8 +19,7 @@
 
 \begin{problema}{vueloRealizadoD}{d: Drone}{[(\ent, \ent)]}
 \requiere{enVuelo(d)}
-\asegura{\res == vueloRealizado(d)}
-%%Es correcto? No se debe considerar la parcela desde la cual se despega
+\asegura{mismos(\res, [  vueloRealizado(d)_i | i \leftarrow [1..\longitud{vueloRealizado(d)}) ]}
 \end{problema}
 
 \begin{problema}{posicionActualD}{d: Drone}{(\ent, \ent)}
