@@ -97,8 +97,10 @@
 
 \begin{problema}{volarYSensarS}{s: Sistema, d: Drone}{}
 \requiere[puedeMoverse]{bateria(d) > 0}
+\requiere {enVuelo (d)}
+\requiere {\en (d, enjambreDrones (s))}
 
-\modifica{s}
+\modifica{s,d}
 
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 
