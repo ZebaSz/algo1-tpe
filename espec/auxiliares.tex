@@ -23,14 +23,14 @@
 
 \aux{vueloDiferente}{e,d: Drone}{[(\ent, \ent)]}{[ vueloRealizado(e)_i | i \leftarrow [\longitud{vueloRealizado(d)}..\longitud{vueloRealizado(e)}) ]}
 
-\aux{noHaceNada}{e,d: Drone}{\bool}{mismos(productosDisponibles(d),productosDisponibles(e)) \vee bateria(d) -1 == bateria(e)}
+\aux{noHaceNada}{e,d: Drone}{\bool}{mismos(productosDisponibles(d),productosDisponibles(e)) \\ \vee bateria(d) -1 == bateria(e)}
 
 \aux{usaAlgunHerbicida}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), Herbicida : productosDisponibles(e)) \wedge mismos(productosDisponibles(d),HerbicidaLargoAlcance : productosDisponibles(e))}
 
-\aux{tieneHerbicida}{d: Drone}{\bool}{\en(Herbicida,productosDisponibles(d)) \vee \en(HerbicidaLargoAlcance,productosDisponibles(d))}
+\aux{tieneHerbicida}{d: Drone}{\bool}{\en{Herbicida,productosDisponibles(d}) \\ \vee \en{HerbicidaLargoAlcance,productosDisponibles(d)}}
 
 \aux{usaPlaguicidaComun}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), Plaguicida : productosDisponibles(e))}
 
 \aux{usaPlaguicidaBajoConsumo}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), PlaguicidaBajoConsumo : productosDisponibles(e))}
 
-\aux{tienePlaguicida}{d: Drone}{\bool}{\en(Plaguicida,productosDisponibles(d)) \vee \en(PlaguicidaBajoConsumo,productosDisponibles(d))}
+\aux{tienePlaguicida}{d: Drone}{\bool}{\en{Plaguicida,productosDisponibles(d)} \\ \vee \en{PlaguicidaBajoConsumo,productosDisponibles(d)}}
