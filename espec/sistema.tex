@@ -63,6 +63,7 @@
 \end{problema}
 
 \begin{problema}{aterrizarYCargarBateriaS}{s: Sistema, b: \ent}{}
+\requiere {0 < b \leq 100}
 \modifica {s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))}) (\forall j \in [0..\sgd{dimensiones(campo(s))}) \\ contenido(campo(s), i, j) \neq Cultivo \vee estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s), i, j))}
@@ -79,7 +80,7 @@
 
 \asegura[mismosDrones]{\longitud{enjambreDrones(s)} == \longitud{enjambreDrones(\pre{s})}}
 
-\asegura[cambiosADrones]{(\forall d \in enjambreDrones(\pre{s})) \\ (enVuelo(d) \wedge ((\exists e \in enjambreDrones(s)) id(e) == id(d)  \wedge enVuelo(e) \wedge alOeste(e, d) \\ \wedge bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)}) \\ \wedge unFertilizantePorCultivo(e,d))) \wedge soloCultivos(s,vueloDiferente(e,d))  \\ \vee (\neg enVuelo(d) \wedge \en{d,enjambreDrones(s))}}
+\asegura[cambiosEnDrones]{(\forall d \in enjambreDrones(\pre{s})) \\ (enVuelo(d) \wedge ((\exists e \in enjambreDrones(s)) id(e) == id(d)  \wedge enVuelo(e) \wedge alOeste(e, d) \\ \wedge bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)}) \\ \wedge unFertilizantePorCultivo(e,d))) \wedge soloCultivos(s,vueloDiferente(e,d))  \\ \vee (\neg enVuelo(d) \wedge \en{d,enjambreDrones(s))}}
 
 \asegura[condicionDeFinalizacion]{(\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} = \sgd{dimension(campo(s))}}
 
