@@ -21,7 +21,7 @@
 
 \aux{posicionesDronesEnVuelo}{s: Sistema}{[(\ent, \ent)]}{[ posicionActual(d) | d \leftarrow enjambreDrones(s), enVuelo(d)]}
 
-\aux{alOeste}{e,d: Drone}{\bool}{\sgd{posicionActual(e)} == \sgd{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
+\aux{alOeste}{e,d: Drone}{\bool}{\prm{posicionActual(e)} == \prm{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
 
 \aux{vueloDiferente}{e,d: Drone}{[(\ent, \ent)]}{[ vueloRealizado(e)_i | i \leftarrow [\longitud{vueloRealizado(d)}..\longitud{vueloRealizado(e)}) ]}
 
