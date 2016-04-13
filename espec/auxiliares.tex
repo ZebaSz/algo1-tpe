@@ -21,6 +21,10 @@
 
 \aux{posicionesDronesEnVuelo}{s: Sistema}{[(\ent, \ent)]}{[ posicionActual(d) | d \leftarrow enjambreDrones(s), enVuelo(d)]}
 
-\aux{alOeste}{e,d: Dron}{\bool}{\sgd{posicionActual(e)} == \sgd{posicionActual(d)} + distancia(posicionActual(e), posicionActual(d))}
+\aux{alOeste}{e,d: Drone}{\bool}{\sgd{posicionActual(e)} == \sgd{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
 
-\aux{unFertilizantePorCultivo}{e,d: Dron}{\bool}{mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante | i \leftarrow [0..distancia(posicionActual(d), posicionActual(e))) ])}
+\aux{vueloDiferente}{e,d: Drone}{[(\ent, \ent)]}{[ vueloRealizado(e)_i | i \leftarrow [\longitud{vueloRealizado(d)}..\longitud{vueloRealizado(e)}) ]}
+
+\aux{soloCultivos}{s: Sistema, r: [(\ent,\ent)]}{\bool}{(\forall (i,j) \in r) contenido(campo(s),i,j) == Cultivo}
+
+\aux{unFertilizantePorCultivo}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante | i \leftarrow [0..\longitud{vueloDiferente(e,d)}) ])}
