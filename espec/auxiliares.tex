@@ -6,9 +6,9 @@
 
 % los aux del tipo drone
 
-\aux{movimientoAlternado}{d: Drone}{\bool}{(\forall d \leftarrow [2..|vueloRealizado(d))|) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \wedge \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
+\aux{movimientoAlternado}{d: Drone}{\bool}{(\forall d \in [2..|vueloRealizado(d))|) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \wedge \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
 
-\aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \leftarrow [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \wedge \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
+\aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \in [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \wedge \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
 
 \subsection{Sistema}
 
@@ -19,16 +19,8 @@
 
 \aux{cultivos}{s: Sistema}{[(\ent, \ent)]}{[ (i,j) | i \leftarrow [0..\prm{dimensiones(campo(s))}) \\  j \leftarrow [0..\sgd{dimensiones(campo(s))}), contenido(campo(s),i,j) == Cultivo]}
 
-\aux {dronesConBateria}{ds: [Drone], b: \ent}{[Drone]}{[d | \\
-d \leftarrow ds, bateria(d) \leq b]}
+\aux{posicionesDronesEnVuelo}{s: Sistema}{[(\ent, \ent)]}{[ posicionActual(d) | d \leftarrow enjambreDrones(s), enVuelo(d)]}
 
-\aux {posicionesEnjambre}{s: Sistema}{[(\ent, \ent)]}{[posicionActual(d) | \\
-d \leftarrow enjambreDrones(s)]}
-\aux {listaAbscisas}{cs: [(\ent, \ent)]}{[\ent]}{[\prm{coord} | coord \leftarrow cs]}
-\aux {coordAbscisa}{d: Drone}{\ent}{\prm{posicionActual(d)}}
+\aux{alOeste}{e,d: Dron}{\bool}{\sgd{posicionActual(e)} == \sgd{posicionActual(d)} + distancia(posicionActual(e), posicionActual(d))}
 
-\aux {dejanDeFuncionar}{s: Sistema}{[Drone]}{[d | d \leftarrow enjambreDrones(s), \\
-bateria(d) == 0 \\
-\vee \prm{posicionActual(d)} == 0 \\
-\vee Fertilizante \not\in productosDisponibles(d) \\
-\vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo}
+\aux{unFertilizantePorCultivo}{e,d: Dron}{\bool}{mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante | i \leftarrow [0..distancia(posicionActual(d), posicionActual(e))) ])}
