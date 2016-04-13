@@ -108,14 +108,14 @@
 
 \asegura[mismoDron]{id(d) == id(\pre{d})}
 
-\asegura[aParcelaAdyacente]{\longitud{vueloDiferente(d, pre(d))} == 1 \wedge enRango(dimensiones(campo(s)), \prm{posicionActual(d)}, \sgd{posicionActual(d)})}
+\asegura[aParcelaAdyacente]{\longitud{vueloDiferente(d, pre(d))} == 1 \\ \wedge enRango(dimensiones(campo(s)), \prm{posicionActual(d)}, \sgd{posicionActual(d)})}
 
 \asegura[sensado]{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == NoSensado \implica (estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq NoSensado \wedge noHaceNada(d, \pre{d})}
 
-\asegura[siEstaBienNoHaceNada]{\neg \en{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}), [ConMaleza, ConPlaga, NoSensado]} \implica (noHaceNada(d, \pre{d}) \wedge estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}))}
+\asegura[siEstaBienNoHaceNada]{ \\ \neg \en{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}), [ConMaleza, ConPlaga, NoSensado]} \\ \implica (noHaceNada(d, \pre{d}) \wedge estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == \\ == estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}))}
 
-\asegura[mataMalezas]{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConMaleza \implica (usaAlgunHerbicida(d, \pre{d}) \wedge bateria(d) == bateria(\pre{d}) - 6 \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == RecienSembrado) \vee ((\neg tieneHerbicida(d) \vee bateria(\pre{d}) < 6) \wedge noHaceNada(d, \pre{d}) \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConMaleza))}
+\asegura[mataMalezas]{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConMaleza \\ \implica (usaAlgunHerbicida(d, \pre{d}) \wedge bateria(d) == bateria(\pre{d}) - 6 \\ \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == RecienSembrado) \\ \vee ((\neg tieneHerbicida(d) \vee bateria(\pre{d}) < 6) \\ \wedge noHaceNada(d, \pre{d}) \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConMaleza))}
 
-\asegura[mataPlagas]{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConPlaga \implica (usaPlaguicidaComun(d, \pre{d}) \wedge bateria(d) == bateria(\pre{d}) - 11 \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == RecienSembrado) \vee (\neg tienePlaguicida(d) \wedge noHaceNada(d, \pre{d}) \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConPlaga))}
+\asegura[mataPlagas]{estadoDelCultivo(\pre{s}, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConPlaga \\ \implica (usaPlaguicidaComun(d, \pre{d}) \wedge bateria(d) == bateria(\pre{d}) - 11 \\ \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == RecienSembrado) \\ \vee (\neg tienePlaguicida(d) \wedge noHaceNada(d, \pre{d}) \\ \wedge estadoDelCultivo(s, \prm{posicionActual(d)}, \sgd{posicionActual(d)}) == ConPlaga))}
 
 \end{problema}
