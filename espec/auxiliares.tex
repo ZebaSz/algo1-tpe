@@ -25,12 +25,14 @@
 
 \aux{noHaceNada}{e,d: Drone}{\bool}{mismos(productosDisponibles(d),productosDisponibles(e)) \\ \vee bateria(d) -1 == bateria(e)}
 
-\aux{usaAlgunHerbicida}{e,d: Drone}{\bool}{(mismos(productosDisponibles(d), Herbicida : productosDisponibles(e)) \vee mismos(productosDisponibles(d),HerbicidaLargoAlcance : productosDisponibles(e))) \wedge bateria(d) \geq 6}
+\aux{usaAlgunHerbicida}{e,d: Drone}{\bool}{(mismos(productosDisponibles(d), Herbicida : productosDisponibles(e)) \vee mismos(productosDisponibles(d),HerbicidaLargoAlcance : productosDisponibles(e))) \wedge bateria(e) == bateria (d) - 6}
 
 \aux{tieneHerbicida}{d: Drone}{\bool}{\en{Herbicida,productosDisponibles(d}) \\ \vee \en{HerbicidaLargoAlcance,productosDisponibles(d)}}
 
-\aux{usaPlaguicidaComun}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), Plaguicida : productosDisponibles(e)) \wedge bateria(d) \geq 11 }
+\aux{usaPlaguicidaComun}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), Plaguicida : productosDisponibles(e)) \wedge bateria(e) == bateria (d) - 11}
 
-\aux{usaPlaguicidaBajoConsumo}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), PlaguicidaBajoConsumo : productosDisponibles(e)) \wedge bateria(d) \geq 6}
+\aux{usaPlaguicidaBajoConsumo}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), PlaguicidaBajoConsumo : productosDisponibles(e)) \wedge bateria(e) == bateria (d) - 6}
 
-\aux{tienePlaguicida}{d: Drone}{\bool}{\en{Plaguicida,productosDisponibles(d)} \\ \vee \en{PlaguicidaBajoConsumo,productosDisponibles(d)}}
+\aux{tienePlaguicida}{d: Drone}{\bool}{\en{Plaguicida,productosDisponibles(d)}}
+
+\aux{tienePlaguicidaBajoConsumo}{d: Drone}{\bool}{\en{PlaguicidaBajoConsumo,productosDisponibles(d)}}
