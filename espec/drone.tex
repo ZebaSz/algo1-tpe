@@ -37,6 +37,6 @@
 \begin{problema}{vuelosCruzadosD}{ds: [Drone]}{[((\ent, \ent), \ent)]}
 \requiere[todosEnVuelo]{(\forall d \in ds) enVuelo(d)}
 \requiere[vuelosDeIgualLargo]{(\forall i \in [1..\longitud{ds})) \longitud{vueloRealizado(ds_i)} == \longitud{vueloRealizado(ds_{i-1})}}
-\asegura{(ds == \lvacia \wedge \res == \lvacia) \vee (mismos(res, [ cruce \ | \ i \leftarrow [0..\longitud{vueloRealizado(ds_0)}), \\ cruce \leftarrow [ (posicion, \longitud{[ 1 | d \leftarrow ds, vueloRealizado(d)_i == posicion]}) | \\ posicion \leftarrow posicionesSinRepetir([ vueloRealizado(d)_i | d \leftarrow ds ]) ], \sgd{cruce} > 1 ]))}
+\asegura{(ds == \lvacia \wedge \res == \lvacia) \vee (mismos(res, [ cruce \ | \ i \leftarrow [0..\longitud{vueloRealizado(ds_0)}), \\ cruce \leftarrow [ (posicion, \longitud{[ 1 | d \leftarrow ds, vueloRealizado(d)_i == posicion]}) | \\ posicion \leftarrow posicionesSinRepetir([ vueloRealizado(d)_i \ | \ d \leftarrow ds ]) ], \sgd{cruce} > 1 ]))}
 \asegura[enOrden]{(\forall i \in [1..\longitud{\res})) \sgd{\res_i} \geq \sgd{\res_{i-1}} \vee (\forall i \in [1..\longitud{\res})) \sgd{\res_i} \leq \sgd{\res_{i-1}}}
 \end{problema}

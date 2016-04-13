@@ -1,7 +1,7 @@
 \begin{problema}{crearS}{c: Campo, ds: [Drone]}{Sistema}
-\asegura[dronesEnGranero] {(\forall d \in ds) posicionActual(d) == posicionGranero(c)}
-\asegura[bateriaLlena] {(\forall d \in ds) bateria(d) == 100}
-\asegura[cultivosNoSensados] {(\forall i \in [0...prm (dimensiones(c))), j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \implica estadoDelCultivo(c,i,j) == NoSensado}
+\asegura[dronesEnGranero] {(\forall d \in ds) \ posicionActual(d) == posicionGranero(c)}
+\asegura[bateriaLlena] {(\forall d \in ds) \ bateria(d) == 100}
+\asegura[cultivosNoSensados] {(\forall i \in [0...prm (dimensiones(c))), \ j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \implica estadoDelCultivo(c,i,j) == NoSensado}
 \asegura {(campo (\res) == c}
 \asegura {mismos (enjambreDrones (\res), ds)}
 \end{problema}
@@ -28,8 +28,8 @@
 \end{problema}
 
 \begin{problema}{seVinoLaMalezaS}{s: Sistema, ps: [(\ent, \ent)]}{}
-\requiere {(\forall (i,j) \in ps) enRango(dimensiones(campo(s)),i,j)}
-\requiere {(\forall (i,j) \in ps) contenido(campo(s),i,j) == Cultivo}
+\requiere {(\forall (i,j) \in ps) \ enRango(dimensiones(campo(s)),i,j)}
+\requiere {(\forall (i,j) \in ps) \ contenido(campo(s),i,j) == Cultivo}
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismosDrones]{mismos(enjambreDrones(\pre{s}), enjambreDrones(s))}
@@ -55,7 +55,7 @@
 \asegura[mismaPosicion]{posicionActual(d) == posicionActual(\pre{d})} 
 \asegura[mismosProductos]{mismos(productosDisponibles(d), productosDisponibles(\pre{d}))}
 \asegura[despegue]{enVuelo(d) \wedge vueloRealizado(d) == [posicionActual]}
-\asegura[mismoEnjambre]{mismos(enjambreDrones(s), d : [ e | e \leftarrow enjambreDrones(\pre{s}), e \neq \pre{d} ])}
+\asegura[mismoEnjambre]{mismos(enjambreDrones(s), d : [ e \ | \ e \leftarrow enjambreDrones(\pre{s}), e \neq \pre{d} ])}
 \end{problema}
 
 \begin{problema}{listoParaCosecharS}{s: Sistema}{\bool}
@@ -84,7 +84,7 @@
 
 \asegura[gastoDeBateria]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)})}
 
-\asegura[unFertilizantePorCultivo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante | i \leftarrow [0..\longitud{vueloDiferente(e,d)}) ])}
+\asegura[unFertilizantePorCultivo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ mismos(productosDisponibles(d), productosDisponibles(e) ++ [ Fertilizante \ | \ i \leftarrow [0..\longitud{vueloDiferente(e,d)}) ])}
 
 \asegura[soloCultivos]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ (\forall (i,j) \in vueloDiferente(e,d)) contenido(campo(s),i,j) == Cultivo}
 
