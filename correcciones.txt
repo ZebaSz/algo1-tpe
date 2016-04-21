@@ -1,0 +1,28 @@
+Resueltos hasta el momento:
+
+* Campo (100%):
+    @crearC:
+      -Falta requerir que dist...
+      -enRango(dimensiones (res), ..) ..
+
+*Drone (100%):
+    @productosDisponiblesD:
+      -usar mismos! no importa el orden
+
+*Sistema (0.0002%):
+    @crearS:
+      -res
+      -falta requerir ids unicos y que no esten en vuelo
+
+    @despegarS:
+      -falta requerir que tenga al 100 la bateria
+
+--------------------------------------------------------------------------------
+
+Falta:
+
+- (!!!)Resolver el problema de igualar drones, definiendo una auxiliar que iguale todo pero haga mismos en la lista de productos.
+  Esto resolvería "==", "en" y "mismos".
+- (!!)Repensar despegarS porque no puede modificarse d.
+- En fertilizarPorFilas falta ver que pasa con los vuelos realizado y un par de cosas mas.
+- (!!)Repensar volarYSensarS (FUUUUUUU) porque no puede modificarse d.
