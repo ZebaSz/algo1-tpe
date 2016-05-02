@@ -19,6 +19,9 @@
 \subsection{Sistema}
 
 % los aux del tipo sistema
+
+\aux{mismoDrone}{d,e: Drone}{\bool}{id(d) == id(e) \wedge \ bateria(d) == bateria(e) \wedge \ posicionActual(d) == posicionActual(e) \wedge \ mismos(productosDisponibles(d), productosDisponibles(e)) \wedge \ vueloRealizado(d) == vueloRealizado(e) \wedge \ enVuelo(d) == enVuelo(e)}
+
 \aux{adyacenteAPlaga}{s: Sistema, (i,j): \ent}{\bool}{\\ \en{ConPlaga, [ estadoDelCultivo(s,i,j) | (i,j) \leftarrow cultivosAdyacentes((i,j),s) ]}}
 
 \aux{cultivosAdyacentes}{(i,j):(\ent,\ent), s: Sistema}{[(\ent, \ent)]}{[ (x,y) | (x,y) \leftarrow [(i,j+1),(i+1,j),(i,j-1),(i-1,j)], \\ enRango(dimensiones(campo(s)),x,y) \wedge contenido(campo(s),x,y) == Cultivo]}
