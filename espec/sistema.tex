@@ -48,16 +48,13 @@
 \requiere{bateria(d) == 100}
 \requiere{\neg enVuelo(d)}
 \requiere{PosicionActual (d) == PosicionGranero (campo (s))}
-\requiere{(\exists e \in enjambreDrones(s)) mismoDrone(d, e)}
+\requiere{(\exists e \in enjambreDrones(s)) \ mismoDrone(d, e)}
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) \neq Cultivo \vee estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s), i, j))}
-\asegura[mismoDron]{id(d) == id(\pre{d})}
-\asegura[mismaBateria]{bateria(d) == bateria(\pre{d})}
-\asegura[mismaPosicion]{posicionActual(d) == posicionActual(\pre{d})} 
-\asegura[mismosProductos]{mismos(productosDisponibles(d), productosDisponibles(\pre{d}))}
-\asegura[despegue]{enVuelo(d) \wedge vueloRealizado(d) == [posicionActual]}
-\asegura[mismoEnjambre]{mismos(enjambreDrones(s), d : [ e \ | \ e \leftarrow enjambreDrones(\pre{s}), e \neq \pre{d} ])}
+\asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) \neq Cultivo \vee estadoDelCultivo(s,i,j) == estadoDelCultivo(\pre{s}, i, j))}
+\asegura[losDronesEstan]{(\forall d1 \in enjambreDrones(\pre{s}), \ id(d1) \neq id(d)) \\ (\exists d2 \in enjambreDrones(s)) \ mismoDrone (d1, d2)}
+\asegura[losDronesTienenQueEstar]{(\forall d2 \in enjambreDrones (s), \ id(d2) \neq id(d)) \\ (\exists d1 \in enjambreDrones(\pre{s})) \ mismoDrone (d1, d2)}
+\asegura[elDroneDespega]{(\exists e \in enjambreDrones(s)) \ id(e) == id(d) \ \wedge posicionActual (e) == posicionActual (d) \\ \wedge \ bateria(e) == bateria (d) \ \wedge \ mismos(productosDisponibles(e), productosDisponibles(d)) \\ \wedge \ enVuelo(e) \ \wedge \ vueloRealizado(e) == [posicionActual]}
 \end{problema}
 
 \begin{problema}{listoParaCosecharS}{s: Sistema}{\bool}
@@ -70,7 +67,7 @@
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) \neq Cultivo \vee estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s), i, j))}
 \asegura[mismosDrones]{\longitud{enjambreDrones(s)} == \longitud{enjambreDrones(\pre{s})}}
-\asegura[cambiosADrones]{(\forall d \in enjambreDrones(pre(s))) (\exists e \in enjambreDrones(s)) \\ (bateria(d) \leq b \implica (id(e) == id(d) \wedge bateria(e) == 100 \wedge \neg enVuelo(e) \wedge posicionActual(e) == posicionGranero(campo(s)) \wedge vueloRealizado(d) == \lvacia \wedge mismos(productosDisponibles(e),productosDisponibles(d)))) \\ \wedge (bateria(d) > b \implica mismoDrone(d,e))}
+\asegura[cambiosADrones]{(\forall d \in enjambreDrones(pre(s))) (\exists e \in enjambreDrones(s)) \\ (bateria(d) \leq b \implica (id(e) == id(d) \ \wedge \ bateria(e) == 100 \ \wedge \ \neg enVuelo(e) \\ \wedge \ posicionActual(e) == posicionGranero(campo(s))  \ \wedge \ vueloRealizado(d) == \lvacia \\ \wedge \ mismos(productosDisponibles(e),productosDisponibles(d)))) \\ \wedge (bateria(d) > b \implica mismoDrone(d,e))}
 \end{problema}
 
 \begin{problema}{fertilizarPorFilas}{s: Sistema}{}
