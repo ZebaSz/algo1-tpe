@@ -18,13 +18,13 @@
 \end{problema}
 
 \begin{problema}{enjambreDronesS}{s: Sistema}{[Drone]}
-\asegura {\longitud{enjambreDrones(s)} == \longitud{\res} \wedge \ (\forall \ d1 \in enjambreDrones(s)) \ (\exists \ d2 \in \res) \\ id(d1) == id(d2) \wedge mismoDrone(d1, d2)}
+\asegura {\longitud{enjambreDrones(s)} == \longitud{\res} \wedge \ (\forall \ d1 \in enjambreDrones(s)) \ (\exists \ d2 \in \res) \ mismoDrone(d1, d2)}
 \end{problema}
 
 \begin{problema}{crecerS}{s: Sistema}{}
 \modifica {s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \ (\forall \ d1 \in enjambreDrones(\pre{s})) \ (\exists \ d2 \in enjambreDrones(s)) \\ id(d1) == id(d2) \wedge mismoDrone(d1, d2)}
+\asegura[mismosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \ (\forall \ d1 \in enjambreDrones(\pre{s})) \\ (\exists \ d2 \in enjambreDrones(s)) \ mismoDrone(d1, d2)}
 \asegura[crecimientoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) == Cultivo \implica \\ (estadoDelCultivo(\pre{s}, i, j) == RecienSembrado \implica estadoDelCultivo(s, i, j) == EnCrecimiento \\ \wedge estadoDelCultivo(\pre{s}, i, j) == EnCrecimiento \implica estadoDelCultivo(s, i, j) == ListoParaCosechar \\ \wedge (estadoDelCultivo(\pre{s}, i, j) \neq RecienSembrado \wedge estadoDelCultivo(\pre{s}, i, j) \neq EnCrecimiento) \\ \implica estadoDelCultivo(\pre{s}, i, j)  = estadoDelCultivo(s, i, j))}
 \end{problema}
 
@@ -33,14 +33,14 @@
 \requiere {(\forall (i,j) \in ps) \ contenido(campo(s),i,j) == Cultivo}
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \ (\forall \ d1 \in enjambreDrones(\pre{s})) \ (\exists \ d2 \in enjambreDrones(s)) \\ id(d1) == id(d2) \wedge mismoDrone(d1, d2)}
+\asegura[mismosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \ (\forall \ d1 \in enjambreDrones(\pre{s})) \\ (\exists \ d2 \in enjambreDrones(s)) \ mismoDrone(d1, d2)}
 \asegura[enmalezado]{(\forall i \in [0..\prm{dimensiones(campo(s))}) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ \en{(i,j),ps} \implica estadoDelCultivo(s,i,j) == ConMaleza \\ \wedge \neg(\en{(i,j),ps)} \implica estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
 \begin{problema}{seExpandePlagaS}{s: Sistema}{}
 \modifica {s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
-\asegura[mismosDrones]{mismos(enjambreDrones(\pre{s}), enjambreDrones(s))}
+\asegura[mismosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \ (\forall \ d1 \in enjambreDrones(\pre{s})) \\ (\exists \ d2 \in enjambreDrones(s)) \ mismoDrone(d1, d2)}
 \asegura[expansiónDePlaga]{(\forall i \in [0..\prm{dimensiones(campo(s))}) (\forall j \in [0..\sgd{dimensiones(campo(s))}) \\ adyacenteAPlaga(s,i,j) \implica estadoDelCultivo(s,i,j) == ConPlaga \\ \wedge  \neg(adyacenteAPlaga(s,i,j)) \implica estadoDelCultivo(s,i,j) == estadoDelCultivo(pre(s),i,j)}
 \end{problema}
 
