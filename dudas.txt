@@ -4,3 +4,6 @@ Volviendo a volcar las dudas en un txt compartido, paso a dejar los problemas co
 	Si bien esta corregido, queda pendiente la duda de si es necesario asegurar los invariantes.
 	(Pareciera que no, ya que si bien Carlos y yo en un primer momento consideramos que nos habían corregido la falta de "aseguras",
 	en realidad era la falta de "requieres", por lo que todo indicaría que no)
+
+23) Necesitaríamos definir si vueloRealizado agrega la posición actual al final o al principio
+    Hay un par de correcciones que ya hice, y otro par que faltan

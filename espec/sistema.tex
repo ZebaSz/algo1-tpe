@@ -77,7 +77,7 @@
 
 \asegura[mismosDrones]{\longitud{enjambreDrones(s)} == \longitud{enjambreDrones(\pre{s})} \\ \wedge (\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s)) id(e) == id(d)}
 
-\asegura[soloCambiarSiEnVuelo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ enVuelo(d) == enVuelo(e) \wedge \neg enVuelo(d) \implica d == e}
+\asegura[soloCambiarSiEnVuelo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ enVuelo(d) == enVuelo(e) \wedge \neg enVuelo(d) \implica mismoDrone (d,e)}
 
 \asegura[vuelosAlOeste]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ \prm{posicionActual(e)} == \prm{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
 
@@ -87,7 +87,7 @@
 
 \asegura[soloCultivos]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ (\forall (i,j) \in vueloDiferente(e,d)) contenido(campo(s),i,j) == Cultivo}
 
-\asegura[condicionDeFinalizacion]{(\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} == 0}
+\asegura[condicionDeFinalizacion]{((\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo \\ \vee \sgd{posicionActual(d)} == 0) \implica vueloRealizado (d)_0 == posicionActual (d)}
 
 \asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
 
