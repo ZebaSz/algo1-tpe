@@ -4,7 +4,7 @@
 \requiere[bateriaLlena] {(\forall d \in ds) \ bateria(d) == 100}
 \asegura[cultivosNoSensados] {(\forall i \in [0...prm (dimensiones(c))), \ j \leftarrow [0...sgd(dimensiones(c)))) \\ contenido (c,i,j) == Cultivo \implica estadoDelCultivo(\res,i,j) == NoSensado}
 \asegura {campo (\res) == c}
-\asegura[mismosDrones]{\longitud{ds} == \longitud{enjambreDrones(\res)} \wedge \ (\forall \ d1 \in ds) \ (\exists \ d2 \in enjambreDrones(\res)) \\ id(d1) == id(d2) \wedge mismoDrone(d1, d2)}
+\asegura[mismosDrones]{\longitud{ds} == \longitud{enjambreDrones(\res)} \wedge \ (\forall \ d1 \in ds) \\ (\exists \ d2 \in enjambreDrones(\res)) \ mismoDrone(d1, d2)}
 \end{problema}
 
 \begin{problema}{campoS}{s: Sistema}{Campo}
@@ -52,8 +52,7 @@
 \modifica{s}
 \asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
 \asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) \neq Cultivo \vee estadoDelCultivo(s,i,j) == estadoDelCultivo(\pre{s}, i, j))}
-\asegura[losDronesEstan]{(\forall d1 \in enjambreDrones(\pre{s}), \ id(d1) \neq id(d)) \\ (\exists d2 \in enjambreDrones(s)) \ mismoDrone (d1, d2)}
-\asegura[losDronesTienenQueEstar]{(\forall d2 \in enjambreDrones (s), \ id(d2) \neq id(d)) \\ (\exists d1 \in enjambreDrones(\pre{s})) \ mismoDrone (d1, d2)}
+\asegura[mismosOtrosDrones]{\longitud{enjambreDrones(\pre{s})} == \longitud{enjambreDrones(s)} \wedge \\ (\forall d1 \in enjambreDrones(\pre{s}), \ id(d1) \neq id(d)) \ (\exists d2 \in enjambreDrones(s)) \ mismoDrone (d1, d2)}
 \asegura[elDroneDespega]{(\exists e \in enjambreDrones(s)) \ id(e) == id(d) \ \wedge posicionActual (e) == posicionActual (d) \\ \wedge \ bateria(e) == bateria (d) \ \wedge \ mismos(productosDisponibles(e), productosDisponibles(d)) \\ \wedge \ enVuelo(e) \ \wedge \ vueloRealizado(e) == [posicionActual]}
 \end{problema}
 
@@ -79,7 +78,7 @@
 
 \asegura[soloCambiarSiEnVuelo]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ enVuelo(d) == enVuelo(e) \wedge \neg enVuelo(d) \implica mismoDrone (d,e)}
 
-\asegura[vuelosAlOeste]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ \prm{posicionActual(e)} == \prm{posicionActual(d)} - \longitud{vueloDiferente(e,d)}}
+\asegura[vuelosAlOeste]{(\forall d \in enjambreDrones(\pre{s}), enVuelo(d)) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ vueloRealizado(e) == vueloRealizado(d) ++ [ \\ (\prm{vueloRealizado(d)_{\longitud{vueloRealizado(d)} - 1}} - (i - \longitud{vueloRealizado(d)}), \\ \sgd{vueloRealizado(d)_{\longitud{vueloRealizado(d)} - 1}}) \ | \ i \rightarrow [\longitud{vueloRealizado(d)}..\longitud{vueloRealizado(e)})] \\ \wedge \ posicionActual(e) == vueloRealizado(e)_{\longitud{vueloRealizado(e)} - 1}}
 
 \asegura[gastoDeBateria]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ bateria(e) == (bateria(d) + \longitud{vueloDiferente(e,d)})}
 
@@ -87,9 +86,9 @@
 
 \asegura[soloCultivos]{(\forall d \in enjambreDrones(\pre{s})) (\exists e \in enjambreDrones(s), id(e) == id(d)) \\ (\forall (i,j) \in vueloDiferente(e,d)) contenido(campo(s),i,j) == Cultivo}
 
-\asegura[condicionDeFinalizacion]{((\forall d \in enjambreDrones(s)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee contenido(campo(s), \prm{vueloRealizado (d)_{|vueloRealizado(d)| - 1}}, \sgd{vueloRealizado (d)_{|vueloRealizado(d)| - 1}}) \neq Cultivo \ \vee \ \sgd{vueloRealizado (d)_{|vueloRealizado(d)| - 1}} == 0) \\ \implica vueloRealizado (d)_{|vueloRealizado(d)| - 1} == posicionActual (d)}
+\asegura[condicionDeFinalizacion]{((\forall d \in enjambreDrones(s), enVuelo(d)) \\ bateria(d) == 0 \vee \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \vee \prm{vueloRealizado (d)_{|vueloRealizado(d)| - 1}} == 0) \\ \vee contenido(campo(s), \prm{vueloRealizado (d)_{|vueloRealizado(d)| - 1}} - 1, \\ \sgd{vueloRealizado (d)_{|vueloRealizado(d)| - 1}}) \neq Cultivo}
 
-\asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
+\asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists \ e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \wedge (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
 
 \end{problema}
 
