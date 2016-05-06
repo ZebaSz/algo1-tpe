@@ -12,7 +12,7 @@
 
 \aux{movimientoAlternado}{d: Drone}{\bool}{(\forall i \in [2.. \longitud{vueloRealizado(d)})) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \land \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
 
-\aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \in [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \land \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
+\aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \in [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \iff \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \land \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \iff \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
 
 \aux{posicionesSinRepetir}{ps: [(\ent, \ent)]}{[(\ent, \ent)]}{[ps_i \ | \ i \leftarrow [0..\longitud{ps}), (\forall j \in [0..i)) \ ps_i \neq ps_j]} 
 
@@ -43,6 +43,8 @@
 \aux{usaPlaguicidaBajoConsumo}{e,d: Drone}{\bool}{mismos(productosDisponibles(d), PlaguicidaBajoConsumo : productosDisponibles(e)) \land bateria(e) == bateria (d) - 6}
 
 \aux{tienePlaguicida}{d: Drone}{\bool}{\en{Plaguicida,productosDisponibles(d)}}
+
+\aux{posicionesFertilizadas}{s,pres: Sistema}{[(\ent,\ent)]}{[ pos | d \leftarrow pres, e \leftarrow s, pos \leftarrow vueloDiferente(e,d), id(d) == id(e) \land enVuelo(e)]}
 
 \subsection{Ejercicios Adicionales}
 
