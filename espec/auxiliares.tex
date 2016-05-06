@@ -44,6 +44,7 @@
 
 \aux{tienePlaguicida}{d: Drone}{\bool}{\en{Plaguicida,productosDisponibles(d)}}
 
+\subsection{Ejercicios Adicionales}
 
 \aux{listaIds}{ds: [Drone]}{[\ent]}{[id(d) \ | \ d \leftarrow ds]}
 
@@ -60,16 +61,16 @@
 {[d \ | \ d \leftarrow enjambreDrones(s), enVuelo(d) \ \land \\ (\forall i \in [\longitud{vueloRealizado(d)}-3..\longitud{vueloRealizado(d)}) (\exists e \in enjambreDrones(s)) \ estanVolandoAlLado (d,e,i)]}
 
 \aux {estanVolandoAlLado}{d,e:Drone, i:\ent}{\bool}
-{(prm(vueloRealizado(d))_i == prm(vueloRealizado(e))_i \implica (sgd (vueloRealizado(d))_i + 1 == sgd (vueloRealizado(e))_i) \lor (sgd (vueloRealizado(d))_i - 1 == sgd (vueloRealizado(e))_i)) \land (sgd(vueloRealizado(d))_i == sgd(vueloRealizado(e))_i \implica (prm (vueloRealizado(d))_i + 1 == prm (vueloRealizado(e))_i) \lor (prm (vueloRealizado(d))_i - 1 == prm (vueloRealizado(e))_i))}
+{(prm(vueloRealizado(d))_i == prm(vueloRealizado(e))_i \\ \implica (sgd (vueloRealizado(d))_i + 1 == sgd (vueloRealizado(e))_i) \\ \lor (sgd (vueloRealizado(d))_i - 1 == sgd (vueloRealizado(e))_i)) \land (sgd(vueloRealizado(d))_i == sgd(vueloRealizado(e))_i \\ \implica (prm (vueloRealizado(d))_i + 1 == prm (vueloRealizado(e))_i) \\ \lor (prm (vueloRealizado(d))_i - 1 == prm (vueloRealizado(e))_i))}
 
 \aux {menorId}{ds:[Drone]}{Drone}
 {cab[d1 \ | \ d1 \leftarrow ds, (\forall d2 \in ds) id(d1) \leq id(d2)]}
 
 \aux {menosProductos}{ds:[Drone]}{[Drone]}
-{[d1 \ | \ d1 \leftarrow ds, (\forall d2 \in ds) \longitud{productosDisponibles(d1)} \leq \longitud{productosDisponibles(d2)}]}
+{[d1 \ | \ d1 \leftarrow ds, (\forall d2 \in ds) \longitud{productosDisponibles(d1)} \\ \leq \longitud{productosDisponibles(d2)}]}
 
 \aux {masParcelas}{s:Sistema]}{[Drone]}
-{[d1 \ | \ d1 \leftarrow enjambreDrones(s), (\forall d2 \in enjambreDrones(s)) \longitud{vueloSinRepeticiones(d1)} \leq \longitud{vueloSinRepeticiones(d2)}]}
+{[d1 \ | \ d1 \leftarrow enjambreDrones(s), (\forall d2 \in enjambreDrones(s)) \\ \longitud{vueloSinRepeticiones(d1)} \leq \longitud{vueloSinRepeticiones(d2)}]}
 
 \aux {vueloSinRepeticiones}{d:Drone}{[\ent , \ent]}
 {[vueloRealizado(d)_i \ | \ i \leftarrow [0...\longitud{vueloRealizado(d)}) (\forall j \in [0..i)) \\ vueloRealizado(d)_i \neq vueloRealizado(d)_j}
