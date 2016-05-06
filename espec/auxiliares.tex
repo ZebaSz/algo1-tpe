@@ -53,7 +53,7 @@
 \aux{losNuevosProductosDeLaLista}{d,e: Drone, ps: [Producto]}{\bool}
 {(\forall p1 \in productosDisponibles(d)) \\ cantProducto(productosDisponibles(d),p1) - cantProducto(productosDisponibles(e),p1)\leq cantProducto(ps,p1)}
 
-\aux{productosNoRecargados}{d,e: Drone, ps: [Producto]}{[Producto]}{\\[0pt] [ Fertilizante | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Fertilizante)] ] ++ \\[0pt] [ Plaguicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Plaguicida)] ] \\[0pt] ++ [ PlaguicidaBajoConsumo | i \leftarrow [1, cantProdNoRecargados(d,e,ps,PlaguicidaBajoConsumo)] ] \\[0pt] ++ [ Herbicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Herbicida)] ] \\[0pt] ++ [ HerbicidaLargoAlcance | i \leftarrow [1, cantProdNoRecargados(d,e,ps,HerbicidaLargoAlcance)]]}
+\aux{productosNoRecargados}{d,e: Drone, ps: [Producto]}{[Producto]}{\\[0pt] [ Fertilizante | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Fertilizante)] ] \\[0pt] ++ [ Plaguicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Plaguicida)] ] \\[0pt] ++ [ PlaguicidaBajoConsumo | i \leftarrow [1, cantProdNoRecargados(d,e,ps,PlaguicidaBajoConsumo)] ] \\[0pt] ++ [ Herbicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Herbicida)] ] \\[0pt] ++ [ HerbicidaLargoAlcance | i \leftarrow [1, cantProdNoRecargados(d,e,ps,HerbicidaLargoAlcance)]]}
 
 \aux{cantProdNoRecargados}{d,e: Drone, ps: [Producto], p: Producto}{\ent}{\\ cantProducto(ps,p) - cantProducto(productosDisponibles(d),p) + cantProducto(productosDisponibles(e),p)}
 

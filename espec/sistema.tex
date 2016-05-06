@@ -90,7 +90,7 @@
 
 \asegura[condicionDeFinalizacion]{((\forall d \in enjambreDrones(s), enVuelo(d)) \\ bateria(d) == 0 \lor \neg(\en{Fertilizante, productosDisponibles(d)}) \\ \lor \prm{vueloRealizado (d)_{|vueloRealizado(d)| - 1}} == 0) \\ \lor contenido(campo(s), \prm{posicionActual(d)}, \sgd{posicionActual(d)}) \neq Cultivo}
 
-\asegura[posicionesNoFertilizadas]{(\forall \ pos \in [ (x,y) \ | \ x \rightarrow [0..\prm{dimensiones(campo(s))}) \\ y \rightarrow [0..\sgd{dimensiones(campo(s))}), contenido(c,x,y) == Cultivo \land \neg en((x,y), posicionesFertilizadas(s,pre(s))) ]) \\ estadoDeCultivo(s,x,y) == estadoDeCultivo(\pre{s},x,y)}
+\asegura[posicionesNoFertilizadas]{(\forall \ pos \in [ (x,y) \ | \ x \rightarrow [0..\prm{dimensiones(campo(s))}) \\ y \rightarrow [0..\sgd{dimensiones(campo(s))}), contenido(c,x,y) == Cultivo \\ \land \neg en((x,y), posicionesFertilizadas(s,pre(s))) ]) \\ estadoDeCultivo(s,x,y) == estadoDeCultivo(\pre{s},x,y)}
 
 \asegura[fertilizarCampo]{(\forall d \in enjambreDrones(\pre{s})) \\ (\exists \ e \in enjambreDrones(s), id(e) == id(d)) (\forall (i,j) \in vueloDiferente(e,d)) \\ ((\en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == ListoParaCosechar) \\ \land (\neg \en{estadoDelCultivo(\pre{s}, i, j), [RecienSembrado, EnCrecimiento]} \\ \implica estadoDelCultivo(s, i, j) == estadoDelCultivo(\pre{s}, i, j))}
 
@@ -121,5 +121,7 @@
 \asegura[mataPlagas]{(\exists e \in enjambreDrones(s), id(d) == id(e)) \\ estadoDelCultivo(\pre{s}, \prm{posicionActual(e)}, \sgd{posicionActual(e)}) == ConPlaga \\ \implica (usaPlaguicidaComun(e, d) \land estadoDelCultivo(s, \prm{posicionActual(e)}, \sgd{posicionActual(e)}) \\ == RecienSembrado) \lor (usaPlaguicidaBajoConsumo(e, d) \\ \land estadoDelCultivo(s, \prm{posicionActual(e)}, \sgd{posicionActual(e)}) == RecienSembrado) \\ \lor ((tienePlaguicida(d) \land ((\neg tienePlaguicidaBajoConsumo(d) \land bateria (d) < 11) \\ \lor (tienePlaguicidaBajoConsumo(d) \land bateria(d) < 6))) \\ \lor (\neg tienePlaguicida(d) \land \neg tienePlaguicidaBajoConsumo(d)))  \land noHaceNada(e,d) \\ \land estadoDelCultivo(s, \prm{posicionActual(e)}, \sgd{posicionActual(e)}) == ConPlaga))}
 
 \asegura[herbicidaLargoAlcance]{(\exists e \in enjambreDrones(s), id(d) == id(e)) \\ mismos(productosDisponibles(d), HerbicidaLargoAlcance : productosDisponibles(e)) \\ \implica ((\forall (x,y) \in cultivosAdyacentes(posicionActual(e),s)) (estadoDelCultivo(\pre{s}, x, y) == ConMaleza \\ \land estadoDelCultivo(s, x, y) == RecienSembrado) \lor (estadoDelCultivo(\pre{s}, x, y) \neq ConMaleza \\ \land estadoDelCultivo(s, x, y) == estadoDelCultivo(\pre{s}, x, y)))}
+
+\asegura[posicionesNoTocadas]{(\exists e \in enjambreDrones(s), id(e) == id(d)) (\forall i \in [0..\prm{dimensiones(campo(s))}) \\ (\forall j \in [0..\sgd{dimensiones(campo(s))}, posicionActual(e) \neq (i,j)) \\ (mismos(productosDisponibles(d), HerbicidaLargoAlcance : productosDisponibles(e)) \\ \land distancia((i,j), posicionActual(e)) == 1) \lor (estadoDelCultivo(s,i,j) == estadoDelCultivo(\pre{s},i,j))}
 
 \end{problema}
