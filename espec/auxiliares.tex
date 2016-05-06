@@ -10,7 +10,7 @@
 
 % los aux del tipo drone
 
-\aux{movimientoAlternado}{d: Drone}{\bool}{(\forall d \in [2.. \ |vueloRealizado(d))|) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \land \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
+\aux{movimientoAlternado}{d: Drone}{\bool}{(\forall i \in [2.. \longitud{vueloRealizado(d)})) \\ \prm{vueloRealizado(d)_i} == \prm{vueloRealizado(d)_{i-1}} \Leftrightarrow |\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-2}}| == 1 \land \\ \sgd{vueloRealizado(d)_i} == \sgd{vueloRealizado(d)_{i-1}} \Leftrightarrow |\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-2}}| == 1}
 
 \aux{movimientoUnidireccional}{d: Drone}{\bool}{(\forall d \in [3..\longitud{vueloRealizado(d))}) \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\prm{vueloRealizado(d)_i} - \prm{vueloRealizado(d)_{i-3}}} == 2 \land \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-1}}} == 1 \Leftrightarrow \\ \longitud{\sgd{vueloRealizado(d)_i} - \sgd{vueloRealizado(d)_{i-3}}} == 2}
 
@@ -32,7 +32,7 @@
 
 \aux{vueloDiferente}{e,d: Drone}{[(\ent, \ent)]}{[ vueloRealizado(e)_i | i \leftarrow [\longitud{vueloRealizado(d)}..\longitud{vueloRealizado(e)}) ]}
 
-\aux{noHaceNada}{e,d: Drone}{\bool}{mismos(productosDisponibles(d),productosDisponibles(e)) \\ \lor bateria(d) -1 == bateria(e)}
+\aux{noHaceNada}{e,d: Drone}{\bool}{mismos(productosDisponibles(d),productosDisponibles(e)) \\ \land bateria(d) -1 == bateria(e)}
 
 \aux{usaAlgunHerbicida}{e,d: Drone}{\bool}{(mismos(productosDisponibles(d), \\ Herbicida : productosDisponibles(e)) \lor mismos(productosDisponibles(d), \\ HerbicidaLargoAlcance : productosDisponibles(e))) \land bateria(e) == bateria (d) - 6}
 
@@ -51,17 +51,20 @@
 \aux{losNuevosProductosDeLaLista}{d,e: Drone, ps: [Producto]}{\bool}
 {(\forall p1 \in productosDisponibles(d)) \\ cantProducto(productosDisponibles(d),p1) - cantProducto(productosDisponibles(e),p1)\leq cantProducto(ps,p1)}
 
+\aux{productosNoRecargados}{d,e: Drone, ps: [Producto]}{[Producto]}{\\[0pt] [ Fertilizante | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Fertilizante)] ] ++ \\[0pt] [ Plaguicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Plaguicida)] ] \\[0pt] ++ [ PlaguicidaBajoConsumo | i \leftarrow [1, cantProdNoRecargados(d,e,ps,PlaguicidaBajoConsumo)] ] \\[0pt] ++ [ Herbicida | i \leftarrow [1, cantProdNoRecargados(d,e,ps,Herbicida)] ] \\[0pt] ++ [ HerbicidaLargoAlcance | i \leftarrow [1, cantProdNoRecargados(d,e,ps,HerbicidaLargoAlcance)]]}
+
+\aux{cantProdNoRecargados}{d,e: Drone, ps: [Producto], p: Producto}{\ent}{\\ cantProducto(ps,p) - cantProducto(productosDisponibles(d),p) + cantProducto(productosDisponibles(e),p)}
+
 \aux {cantProducto}{ps: [Producto], p1: Producto}{\ent}
 {\longitud {[1\ | \ p \leftarrow ps, p == p1]}}
 
-\aux {losProductosSumanMenosDe100}{d:Drone}{\bool}
-{\\ 100 \geq ( \sum [10\ | \ p \leftarrow productosDisponibles(d), p == Plaguicida] + \sum [5\ | \ p \leftarrow productosDisponibles(d), \\ p == PlaguicidaBajoConsumo \lor p == Herbicida \lor p == HerbicidaLargoAlcance])}
+\aux {costoEnergiaProductos}{d:Drone}{\ent}
+{\sum [10\ | \ p \leftarrow productosDisponibles(d), p == Plaguicida] + \sum [5\ | \ p \leftarrow productosDisponibles(d), p == PlaguicidaBajoConsumo \lor p == Herbicida \lor p == HerbicidaLargoAlcance]}
 
 \aux {dronesEnFormacion}{s:Sistema}{[Drone]}
 {[d \ | \ d \leftarrow enjambreDrones(s), enVuelo(d) \ \land \\ (\forall i \in [\longitud{vueloRealizado(d)}-3..\longitud{vueloRealizado(d)}) (\exists e \in enjambreDrones(s)) \ estanVolandoAlLado (d,e,i)]}
 
-\aux {estanVolandoAlLado}{d,e:Drone, i:\ent}{\bool}
-{(prm(vueloRealizado(d))_i == prm(vueloRealizado(e))_i \\ \implica (sgd (vueloRealizado(d))_i + 1 == sgd (vueloRealizado(e))_i) \\ \lor (sgd (vueloRealizado(d))_i - 1 == sgd (vueloRealizado(e))_i)) \land (sgd(vueloRealizado(d))_i == sgd(vueloRealizado(e))_i \\ \implica (prm (vueloRealizado(d))_i + 1 == prm (vueloRealizado(e))_i) \\ \lor (prm (vueloRealizado(d))_i - 1 == prm (vueloRealizado(e))_i))}
+\aux {estanVolandoAlLado}{d,e:Drone, i:\ent}{\bool}{distancia(vueloRealizado(d)_i,vueloRealizado(e)_i) == 1}
 
 \aux {menorId}{ds:[Drone]}{Drone}
 {cab[d1 \ | \ d1 \leftarrow ds, (\forall d2 \in ds) id(d1) \leq id(d2)]}
@@ -69,7 +72,7 @@
 \aux {menosProductos}{ds:[Drone]}{[Drone]}
 {[d1 \ | \ d1 \leftarrow ds, (\forall d2 \in ds) \longitud{productosDisponibles(d1)} \\ \leq \longitud{productosDisponibles(d2)}]}
 
-\aux {masParcelas}{s:Sistema]}{[Drone]}
+\aux {masParcelas}{s:Sistema}{[Drone]}
 {[d1 \ | \ d1 \leftarrow enjambreDrones(s), (\forall d2 \in enjambreDrones(s)) \\ \longitud{vueloSinRepeticiones(d1)} \leq \longitud{vueloSinRepeticiones(d2)}]}
 
 \aux {vueloSinRepeticiones}{d:Drone}{[\ent , \ent]}
