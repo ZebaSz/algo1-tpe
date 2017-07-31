@@ -1,9 +1,29 @@
-# TP Especificación - Algoritmos 1
-## Estructura del TP
-El TP es una template con un un montón de macros. Lo que hay que editar es:
-- El archivo resolucion.tex, el archivo principal; acá están nuestros datos, y lo demás se maneja afuera
-- La carpeta espec, tiene varios archivos que corresponden a las diferentes secciones del documento.
+# Algoritmos y Estructuras de Datos 1 - Trabajo Práctico 1
 
-También está:
-- La carpeta tipos, tiene definido (obviamente) los distintos tipos de datos
-- Algo1Macros y caratula.tex, tienen algunas funciones y cuestiones de formato
+1er Cuatrimestre - 2016
+
+Departamento de Computación,<br/>
+Facultad de Ciencias Exactas y Naturales,<br/>
+Universidad de Buenos Aires
+
+## Grupo
+
+Grupo N° **15**
+
+Miembros:
+
+| Nombre                           | Github                                                | Email                     |
+| -------------------------------- | ----------------------------------------------------- | ------------------------- |
+| Sebastián Ariel Szperling        | [ZebaSz](https://github.com/ZebaSz)                   | zebaszp@gmail.com         |
+| Florencia Alejandra Lopez Segura | [fesgura](https://github.com/fesgura)                 | fsegura@dc.uba.com        |
+| Roni Ariel Barylko               | [ronibarylko](https://github.com/ronibarylko)         | ronibarylko@hotmail.com   |
+| Carlos Rafael Giudice            | [CatOfTheCannals](https://github.com/CatOfTheCannals) | carlosr.giudice@gmail.com |
+
+## Entregas
+
+| Entrega    | Tag                                                           | Fecha    | Nota |
+| ---------- | ------------------------------------------------------------- | -------- | ---- |
+| Inicial    | [v1.0](https://github.com/ZebaSz/algo1-tpe/releases/tag/v1.0) | 13/04/16 | I    |
+| Reentrega  | [v2.0](https://github.com/ZebaSz/algo1-tpe/releases/tag/v2.0) | 09/05/16 | A    |
+
+*Nota: para que este archivo sea visible en Github, el archivo **README.md** original fue renombrado **instrucciones.md***
