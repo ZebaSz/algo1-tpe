@@ -1,5 +1,5 @@
 \begin{problema}{crearD}{i: \ent, ps: [Producto]}{Drone}
-\asegura {bateria(\res) == 100 \wedge id (\res) == i } 
+\asegura {bateria(\res) == 100 \land id (\res) == i } 
 \asegura {\neg enVuelo(\res)}
 \asegura {mismos (productosDisponibles (\res), ps)}
 \end{problema}
@@ -30,13 +30,13 @@
 \end{problema}
 
 \begin{problema}{vueloEscaleradoD}{d: Drone}{\bool}
-\asegura{\res == enVuelo(d) \wedge movimientoAlternado(d) \wedge movimientoUnidireccional(d)}
+\asegura{\res == enVuelo(d) \land movimientoAlternado(d) \land movimientoUnidireccional(d)}
 \end{problema}
 
 
 \begin{problema}{vuelosCruzadosD}{ds: [Drone]}{[((\ent, \ent), \ent)]}
 \requiere[todosEnVuelo]{(\forall d \in ds) enVuelo(d)}
 \requiere[vuelosDeIgualLargo]{(\forall i \in [1..\longitud{ds})) \longitud{vueloRealizado(ds_i)} == \longitud{vueloRealizado(ds_{i-1})}}
-\asegura{(ds == \lvacia \wedge \res == \lvacia) \vee (mismos(res, [ cruce \ | \ i \leftarrow [0..\longitud{vueloRealizado(ds_0)}), \\ cruce \leftarrow [ (posicion, \longitud{[ 1 | d \leftarrow ds, vueloRealizado(d)_i == posicion]}) | \\ posicion \leftarrow posicionesSinRepetir([ vueloRealizado(d)_i \ | \ d \leftarrow ds ]) ], \sgd{cruce} > 1 ]))}
-\asegura[enOrden]{(\forall i \in [1..\longitud{\res})) \sgd{\res_i} \geq \sgd{\res_{i-1}} \vee (\forall i \in [1..\longitud{\res})) \sgd{\res_i} \leq \sgd{\res_{i-1}}}
+\asegura{(ds == \lvacia \land \res == \lvacia) \lor (mismos(res, [ cruce \ | \ i \leftarrow [0..\longitud{vueloRealizado(ds_0)}), \\ cruce \leftarrow [ (posicion, \longitud{[ 1 | d \leftarrow ds, vueloRealizado(d)_i == posicion]}) | \\ posicion \leftarrow posicionesSinRepetir([ vueloRealizado(d)_i \ | \ d \leftarrow ds ]) ], \sgd{cruce} > 1 ]))}
+\asegura[enOrden]{(\forall i \in [1..\longitud{\res})) \sgd{\res_i} \geq \sgd{\res_{i-1}} \lor (\forall i \in [1..\longitud{\res})) \sgd{\res_i} \leq \sgd{\res_{i-1}}}
 \end{problema}

@@ -1,11 +1,10 @@
 \begin{problema}{crearC}{posG, posC: (\ent, \ent)}{Campo}
-\requiere[puntosValidos]{0 \leq \prm{posG} \wedge 0 \leq \sgd{posG} \wedge 0 \leq \prm{posC} \wedge 0 \leq \sgd{posC}}
-\requiere[puntosDistintos]{\prm{posG} \neq \prm{posC} \vee \sgd{posG} \neq \sgd{posC}}
+\requiere[puntosValidos]{0 \leq \prm{posG} \land 0 \leq \sgd{posG} \land 0 \leq \prm{posC} \land 0 \leq \sgd{posC}}
+\requiere[puntosDistintos]{posG \neq posC}
 \requiere[aMenosDe100]{distancia(posG, posC) \leq 100}
-\requiere {distancia((0,0), posG) \leq 100}
-\requiere {distancia((0,0), posC) \leq 100}
-\asegura{enRango(dimensiones(res), prm(posG), sgd(posG)) \wedge ( contenido(res, prm(posG), sgd(posG)) == Granero)}
-\asegura{enRango(dimensiones(res), prm(posC), sgd(posC)) \wedge ( contenido(res, prm(posC), sgd(posC)) == Casa)}
+\requiere{distancia((0,0), posG) \leq 100}
+\asegura{enRango(dimensiones(res), prm(posG), sgd(posG)) \\ \land ( contenido(res, prm(posG), sgd(posG)) == Granero)}
+\asegura{enRango(dimensiones(res), prm(posC), sgd(posC)) \\ \land ( contenido(res, prm(posC), sgd(posC)) == Casa)}
 \end{problema}
 
 \begin{problema}{dimensionesC}{c: Campo}{(Ancho, Largo))}

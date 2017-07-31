@@ -1,0 +1,21 @@
+\begin{problema}{recargarProductos}{s: Sistema, id: Id, ps: [Producto]}{}
+\requiere{(\exists d \in enjambreDrones(s)) \ id (d) == id \ \land \ \neg enVuelo(d) \ \land \ bateria (d) == 100}
+\modifica{s}
+\asegura[mismoCampo]{campo(\pre{s}) == campo(s)}
+\asegura[mismoEstadoCultivo]{(\forall i \in [0..\prm{dimensiones(campo(s))})) (\forall j \in [0..\sgd{dimensiones(campo(s))})) \\ contenido(campo(s), i, j) \neq Cultivo \lor estadoDelCultivo(s,i,j) == estadoDelCultivo(\pre{s}, i, j))}
+\asegura [mismosDrones]{\longitud {enjambreDrones(s)} == \longitud {enjambreDrones (\pre{s})} \land \\ (\forall d \in enjambreDrones(\pre{s}), id(d) \neq id) \ (\exists e \in enjambreDrones(s)) \ mismoDrone(d,e)}
+\asegura[dronDeRecarga]{(\exists d \in enjambreDrones(s)) (\exists e \in enjambreDrones(\pre{s}), id(d) == id(e)) \\ id(d) == id \land bateria(d) == 100 \land \neg enVuelo(d) \land vueloRealizado(d) == \lvacia \\ \land posicionActual(d) == posicionGranero(campo(s))}
+\asegura {(\exists d \in enjambreDrones(s)) (\exists e \in enjambreDrones(\pre{s}), id(d) == id(e)) \\ losNuevosProductosDeLaLista(d,e,ps) \ \land \ 100 \geq costoEnergiaProductos(d) \\ \land \neg en(Fertilizante, productosNoRecargados(d,e,ps)) \ \land \ (costoEnergiaProductos(d) \leq 95) \\ \implica (\neg en(Herbicida, productosNoRecargados(d,e,ps)) \\ \land \neg en(HerbicidaLargoAlcance, productosNoRecargados(d,e,ps)) \\ \land \neg en(PlaguicidaBajoConsumo, productosNoRecargados(d,e,ps))) \\ \land \  (costoEnergiaProductos(d) \leq 90) \implica (\neg en(Plaguicida, productosNoRecargados(d,e,ps)))}
+
+\end{problema}
+
+\begin{problema}{vuelanEnFormacion}{s: Sistema}{Bool}
+\requiere{(\forall d \in enjambreDrones(s)) \longitud{vueloRealizado(d)} > 3}
+\requiere {\longitud {enjambreDrones(s)} \geq 2}
+\asegura {res == (\longitud {enjambreDrones(s)} < \longitud {dronesEnFormacion(s)} \times 2)}
+\end{problema}
+
+\begin{problema}{droneAward}{s: Sistema}{Drone}
+\requiere{\longitud {enjambreDrones(s)} \geq 1}
+\asegura {mismoDrone(res, menorId(menosProductos(masParcelas(s))))}
+\end{problema}
